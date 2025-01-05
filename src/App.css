@@ -1,0 +1,14 @@
+:root {
+  --bg-color: #121212;
+  --text-color: #F5F5F5;
+}
+
+.light-mode {
+  --bg-color: #F5F5F5;
+  --text-color: #121212;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
