@@ -1,0 +1,33 @@
+.formContainer h2 {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1rem;
+}
+
+form {
+  margin: 0;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.submitContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.submitContainer .icon {
+  font-size: 4rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.submitContainer .icon:hover {
+  color: var(--mui-palette-primary);
+  transform: scale(1.1);
+}

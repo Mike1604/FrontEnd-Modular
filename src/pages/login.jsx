@@ -1,18 +1,12 @@
-import Alert from "@mui/material/Alert";
-
-import Switch from "@mui/material/Switch";
-
-const label = { inputProps: { "aria-label": "Switch demo" } };
+import LoginHeader from "../components/login/LoginHeader";
+import LoginForm from "../components/login/LoginForm";
+import loginStyles from './Login.module.css'
 
 export default function Login() {
   return (
-    <>
-      <Switch {...label} defaultChecked />
-      <div>loginaaaaaaaaaaaaaaa</div>
-      <Alert severity="success">This is a success Alert.</Alert>
-      <Alert severity="info">This is an info Alert.</Alert>
-      <Alert severity="warning">This is a warning Alert.</Alert>
-      <Alert severity="error">This is an error Alert.</Alert>
-    </>
+    <div className={loginStyles['login-container']}>
+      <LoginHeader />
+      <LoginForm />
+    </div>
   );
 }

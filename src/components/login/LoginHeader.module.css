@@ -1,0 +1,23 @@
+.header-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 3rem;
+  padding: 0 16px;
+}
+
+.header-div h1,
+.header-div .icon {
+  font-family: "Inria Sans", serif;
+  font-size: 3rem;
+}
+
+.header-div h1 {
+  margin: 0;
+  line-height: 1;
+}
+
+.header-div .icon {
+  vertical-align: middle;
+}
