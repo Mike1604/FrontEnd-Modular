@@ -1,8 +1,30 @@
-.login-container {
+ h2{
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1rem;
+}
+
+form {
+  margin: 0;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.submitContainer {
   display: flex;
-  flex-flow: column wrap;
   justify-content: center;
-  align-items: center; 
-  height: 100vh; 
-  gap: 1.5rem;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.submitContainer .icon {
+  font-size: 3rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.submitContainer .icon:hover {
+  transform: scale(1.1);
 }

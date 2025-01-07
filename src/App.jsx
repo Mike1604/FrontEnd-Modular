@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { RouterProvider } from "react-router";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { getTheme } from "./Util/MuiTheme";
 /* import Button from "@mui/material/Button"; */
-import Login from "./pages/Login";
+import router from "./router/router"
 import "./App.css";
 
-const router = createBrowserRouter([{ path: "/", element: <Login /> }]);
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
