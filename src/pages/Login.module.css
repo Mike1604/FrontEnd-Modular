@@ -28,3 +28,14 @@ form {
 .submitContainer .icon:hover {
   transform: scale(1.1);
 }
+
+.accountConfirmed {
+  margin: 0;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.submitContainer .iconConfirmation {
+  font-size: 10rem;
+}

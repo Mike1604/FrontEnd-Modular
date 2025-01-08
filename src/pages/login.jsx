@@ -3,20 +3,45 @@ import { TextField, IconButton, Button } from "@mui/material";
 import { Link } from "react-router";
 import loginFormStyles from "../pages/Login.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
-import TextContainer from "../components/UI/TextContainer"
+import TextContainer from "../components/UI/TextContainer";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login details:", { email, password });
+
+    const dataToSend = {
+      email,
+      password,
+    };
+
+    console.log("User to send", dataToSend);
+
+    try {
+      const response = await fetch("http://localhost:8001/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Inicio de sesion correctamente:", result);
+    } catch (error) {
+      console.error("Error al iniciar sesion:", error);
+    }
   };
 
   return (
     <main className={loginFormStyles.formContainer}>
-      <TextContainer text={'Iniciar sesión'}></TextContainer>
+      <TextContainer text={"Iniciar sesión"}></TextContainer>
 
       <form onSubmit={handleSubmit} noValidate>
         <TextField
@@ -57,7 +82,7 @@ export default function Login() {
         </div>
       </form>
 
-      <TextContainer text={'ó'}></TextContainer>
+      <TextContainer text={"ó"}></TextContainer>
 
       <div className={loginFormStyles.submitContainer}>
         <Link to="/CreateAccount">
@@ -71,7 +96,6 @@ export default function Login() {
           <h2>¿No recuerdas tu usuario o contraseña?</h2>
         </Button>
       </div>
-      
     </main>
   );
 }

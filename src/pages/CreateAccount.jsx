@@ -6,6 +6,7 @@ import loginFormStyles from "../pages/Login.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import TextContainer from "../components/UI/TextContainer";
+import AccountConfirmed from "../components/login/AccountConfirmed";
 
 const StepOne = ({ formData, handleChange }) => (
   <>
@@ -19,7 +20,7 @@ const StepOne = ({ formData, handleChange }) => (
       name="first_name"
       autoComplete="name"
       autoFocus
-      value={formData.first_name} 
+      value={formData.first_name}
       onChange={handleChange}
     />
 
@@ -32,7 +33,7 @@ const StepOne = ({ formData, handleChange }) => (
       label="Apellido"
       name="last_name"
       autoComplete="name"
-      value={formData.last_name} 
+      value={formData.last_name}
       onChange={handleChange}
     />
   </>
@@ -84,6 +85,7 @@ const StepTwo = ({ formData, handleChange }) => (
 );
 
 export default function CreateAccount() {
+  const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -108,7 +110,6 @@ export default function CreateAccount() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     if (step < 2) {
       setStep((prev) => prev + 1);
 
@@ -128,14 +129,14 @@ export default function CreateAccount() {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
-  
+
       const result = await response.json();
       console.log("Usuario registrado con éxito:", result);
-  
+      setConfirmationVisible(true);
     } catch (error) {
       console.error("Error al registrar usuario:", error);
     }
@@ -144,41 +145,50 @@ export default function CreateAccount() {
   return (
     <main>
       <TextContainer text="Crear Cuenta" />
-      <form onSubmit={handleSubmit} noValidate>
-        {step === 1 && <StepOne formData={formData} handleChange={handleChange} />}
-        {step === 2 && <StepTwo formData={formData} handleChange={handleChange} />}
+      {confirmationVisible ? (
+        <AccountConfirmed />
+      ) : (
+        <>
+          <form onSubmit={handleSubmit} noValidate>
+            {step === 1 && (
+              <StepOne formData={formData} handleChange={handleChange} />
+            )}
+            {step === 2 && (
+              <StepTwo formData={formData} handleChange={handleChange} />
+            )}
 
-        <div className={loginFormStyles.submitContainer}>
-          <IconButton onClick={handleStepBack}>
-            <ArrowCircleLeftOutlinedIcon
-              fontSize="large"
-              className={loginFormStyles.icon}
-            />
-          </IconButton>
-          <IconButton type="submit">
-            <ArrowCircleRightOutlinedIcon
-              fontSize="large"
-              className={loginFormStyles.icon}
-            />
-          </IconButton>
-        </div>
-      </form>
+            <div className={loginFormStyles.submitContainer}>
+              <IconButton onClick={handleStepBack}>
+                <ArrowCircleLeftOutlinedIcon
+                  fontSize="large"
+                  className={loginFormStyles.icon}
+                />
+              </IconButton>
+              <IconButton type="submit">
+                <ArrowCircleRightOutlinedIcon
+                  fontSize="large"
+                  className={loginFormStyles.icon}
+                />
+              </IconButton>
+            </div>
+          </form>
+          <TextContainer text="ó" />
 
-      <TextContainer text="ó" />
+          <div className={loginFormStyles.submitContainer}>
+            <Link to="/">
+              <Button variant="text">
+                <h2>Ingresar a una cuenta existente</h2>
+              </Button>
+            </Link>
+          </div>
 
-      <div className={loginFormStyles.submitContainer}>
-        <Link to="/">
-          <Button variant="text">
-            <h2>Ingresar a una cuenta existente</h2>
-          </Button>
-        </Link>
-      </div>
-
-      <div className={loginFormStyles.submitContainer}>
-        <Button variant="text" color="secondary">
-          <h2>¿No recuerdas tu usuario o contraseña?</h2>
-        </Button>
-      </div>
+          <div className={loginFormStyles.submitContainer}>
+            <Button variant="text" color="secondary">
+              <h2>¿No recuerdas tu usuario o contraseña?</h2>
+            </Button>
+          </div>
+        </>
+      )}
     </main>
   );
 }

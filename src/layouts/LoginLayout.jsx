@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import LoginHeader from "../components/login/LoginHeader";
+import GlotoolsHeader from "../components/login/GloToolsHeader";
 import styles from "./LoginLayout.module.css";
 
 export default function LoginLayout(props) {
@@ -7,7 +7,7 @@ export default function LoginLayout(props) {
 
   return (
     <div className={styles["login-container"]}>
-      <LoginHeader></LoginHeader>
+      <GlotoolsHeader></GlotoolsHeader>
       <Outlet></Outlet>
     </div>
   );
