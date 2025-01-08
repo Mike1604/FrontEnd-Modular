@@ -1,0 +1,41 @@
+ h2{
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1rem;
+}
+
+form {
+  margin: 0;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.submitContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.submitContainer .icon {
+  font-size: 3rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.submitContainer .icon:hover {
+  transform: scale(1.1);
+}
+
+.accountConfirmed {
+  margin: 0;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.submitContainer .iconConfirmation {
+  font-size: 10rem;
+}
