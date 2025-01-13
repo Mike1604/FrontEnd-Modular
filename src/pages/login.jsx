@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import loginFormStyles from "../pages/Login.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import TextContainer from "../components/UI/TextContainer";
+import PasswordField from "../components/UI/PasswordField";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -57,23 +58,10 @@ export default function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Contraseña"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <PasswordField label={"Contraseña"} value={password} onChange={(e) => setPassword(e.target.value)} />
 
         <div className={loginFormStyles.submitContainer}>
-          <IconButton type="submit" /* className={loginFormStyles.icon} */>
+          <IconButton type="submit">
             <ArrowCircleRightOutlinedIcon
               fontSize="large"
               className={loginFormStyles.icon}
@@ -85,7 +73,7 @@ export default function Login() {
       <TextContainer text={"ó"}></TextContainer>
 
       <div className={loginFormStyles.submitContainer}>
-        <Link to="/CreateAccount">
+        <Link to="/SignUp">
           <Button variant="text">
             <h2>Crear cuenta</h2>
           </Button>

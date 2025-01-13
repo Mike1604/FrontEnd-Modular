@@ -1,11 +1,12 @@
 import GridViewIcon from '@mui/icons-material/GridView';
-import styles from './LoginHeader.module.css'
+import styles from './LoginHeader.module.css';
 
-export default function GlotoolsHeader() {
+// eslint-disable-next-line react/prop-types
+export default function GlotoolsHeader({ className }) {
   return (
-    <header className={styles['header-div']}>
-        <GridViewIcon className={styles.icon}></GridViewIcon>
-        <h1>GLOTOOLS</h1>
-    </header>
-  )
+    <div className={`${styles['header-div']} ${className || ''}`}>
+      <GridViewIcon/>
+      <h1>GLOTOOLS</h1>
+    </div>
+  );
 }

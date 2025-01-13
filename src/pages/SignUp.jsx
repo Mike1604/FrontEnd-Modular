@@ -7,6 +7,7 @@ import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOu
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import TextContainer from "../components/UI/TextContainer";
 import AccountConfirmed from "../components/login/AccountConfirmed";
+import PasswordField from "../components/UI/PasswordField";
 
 const StepOne = ({ formData, handleChange }) => (
   <>
@@ -54,37 +55,27 @@ const StepTwo = ({ formData, handleChange }) => (
       onChange={handleChange}
     />
 
-    <TextField
-      variant="outlined"
-      margin="normal"
-      required
-      fullWidth
-      name="password"
+    <PasswordField
       label="Contraseña"
-      type="password"
-      id="password"
-      autoComplete="current-password"
       value={formData.password}
-      onChange={handleChange}
+      onChange={(e) =>
+        handleChange({ target: { name: "password", value: e.target.value } })
+      }
     />
 
-    <TextField
-      variant="outlined"
-      margin="normal"
-      required
-      fullWidth
-      name="passwordConfirmation"
+    <PasswordField
       label="Confirmar Contraseña"
-      type="password"
-      id="passwordConfirmation"
-      autoComplete="current-password"
       value={formData.passwordConfirmation}
-      onChange={handleChange}
+      onChange={(e) =>
+        handleChange({
+          target: { name: "passwordConfirmation", value: e.target.value },
+        })
+      }
     />
   </>
 );
 
-export default function CreateAccount() {
+export default function SignUp() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -175,7 +166,7 @@ export default function CreateAccount() {
           <TextContainer text="ó" />
 
           <div className={loginFormStyles.submitContainer}>
-            <Link to="/">
+            <Link to="/login">
               <Button variant="text">
                 <h2>Ingresar a una cuenta existente</h2>
               </Button>

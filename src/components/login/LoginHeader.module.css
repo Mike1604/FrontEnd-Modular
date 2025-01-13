@@ -8,7 +8,7 @@
 }
 
 .header-div h1,
-.header-div .icon {
+.header-div svg {
   font-family: "Inria Sans", serif;
   font-size: 3rem;
 }
@@ -18,6 +18,6 @@
   line-height: 1;
 }
 
-.header-div .icon {
+.header-div svg {
   vertical-align: middle;
 }
