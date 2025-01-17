@@ -16,6 +16,7 @@
 .outlet-grid {
   grid-row: span 1;
   margin: 10px;
+  overflow-y: auto;
 }
 
 
