@@ -21,3 +21,7 @@
 .header-div svg {
   vertical-align: middle;
 }
+
+.header-div:hover {
+  cursor: pointer;
+}

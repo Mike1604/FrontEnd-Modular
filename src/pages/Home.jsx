@@ -1,7 +1,7 @@
 
 
-export default function Home() {
+export default function Home({gridClass}) {
   return (
-    <div>Home</div>
+    <div className={`${''} ${gridClass || ''}`}>Home</div>
   )
 }
