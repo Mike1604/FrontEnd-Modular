@@ -8,7 +8,9 @@ export default function HomeLayout() {
     <div className={HomeStyles["home-container"]}>
       <Sidebar gridClass={HomeStyles["sidebar-grid"]} />
       <NavBar gridClass={HomeStyles["navbar-grid"]} />
-      <Outlet className={HomeStyles["outlet-grid"]} />
+      <main className={HomeStyles["outlet-grid"]}>
+        <Outlet />
+      </main>
     </div>
   );
 }

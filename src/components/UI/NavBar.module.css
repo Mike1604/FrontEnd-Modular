@@ -1,13 +1,36 @@
 nav {
-    display: grid;
-    grid-template-columns: 1fr auto; 
-    margin: 10px;
-    gap: 3rem;
-    padding: 0.5rem;
-  }
-  
-  .searchBar input {
-    height: 0.5rem;
-    min-width: 300px;
-  }
-  
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin: 10px;
+  gap: 1rem;
+  align-items: center; 
+}
+
+nav h2 {
+  font-size: 0.8rem;
+}
+
+.searchBar input {
+  height: 100%; 
+  box-sizing: border-box; 
+  padding-right: 48px; 
+  font-size: 1rem; 
+}
+
+.user-options {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.avatar-cont {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+
+@media (max-width: 600px) {
+}

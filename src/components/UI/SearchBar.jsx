@@ -12,7 +12,8 @@ export default function SearchBar({className}) {
   return (
     <TextField
       variant="outlined"
-      placeholder="Buscar..."
+      fullWidth
+      label="Buscar..."
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
       slotProps={{
