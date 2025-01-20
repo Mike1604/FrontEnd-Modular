@@ -4,7 +4,7 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  box-shadow: -0.5px 0 0 whitesmoke inset;
+  box-shadow: -0.5px 0 0 var(--secondary-color) inset;
   transition: all ease 0.3s;
   position: sticky;
   top: 0;

@@ -39,3 +39,14 @@ form {
 .submitContainer .iconConfirmation {
   font-size: 10rem;
 }
+
+
+.language-cont {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1rem;
+}
+
+.language-cont > div {
+  flex: 1; 
+}

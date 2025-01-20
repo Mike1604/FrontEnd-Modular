@@ -1,13 +1,19 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
-import { TextField, IconButton, Button } from "@mui/material";
-import { Link } from "react-router";
-import loginFormStyles from "../pages/Login.module.css";
+import {
+  TextField,
+  IconButton,
+  Button,
+} from "@mui/material";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
+
+import { Link } from "react-router";
+
+import loginFormStyles from "../pages/Login.module.css";
 import TextContainer from "../components/UI/TextContainer";
 import AccountConfirmed from "../components/login/AccountConfirmed";
 import PasswordField from "../components/UI/PasswordField";
+import LanguageSelect from "../components/UI/LanguageSelect";
 
 const StepOne = ({ formData, handleChange }) => (
   <>
@@ -37,6 +43,22 @@ const StepOne = ({ formData, handleChange }) => (
       value={formData.last_name}
       onChange={handleChange}
     />
+
+    <div className={loginFormStyles["language-cont"]}>
+      <LanguageSelect
+        label={"Primary Language"}
+        name={"primary_language"}
+        value={formData.primary_language}
+        handleChange={handleChange}
+      />
+
+      <LanguageSelect
+        label={"Secondary Language"}
+        name={"secondary_language"}
+        value={formData.secondary_language}
+        handleChange={handleChange}
+      />
+    </div>
   </>
 );
 
@@ -83,6 +105,8 @@ export default function SignUp() {
     last_name: "",
     email: "",
     password: "",
+    primary_language: "",
+    secondary_language: "",
     passwordConfirmation: "",
   });
 
@@ -103,7 +127,6 @@ export default function SignUp() {
 
     if (step < 2) {
       setStep((prev) => prev + 1);
-
       return;
     }
 
@@ -163,6 +186,7 @@ export default function SignUp() {
               </IconButton>
             </div>
           </form>
+          
           <TextContainer text="ó" />
 
           <div className={loginFormStyles.submitContainer}>

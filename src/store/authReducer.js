@@ -4,6 +4,7 @@ const initialState = {
   isAuthenticated: true,
   token: null,
   expiration: null,
+  userId: "677c94a2b51bfa19e3196dfa",
 };
 
 const authSlice = createSlice({
@@ -16,7 +17,10 @@ const authSlice = createSlice({
             const expiration = decoded.exp * 1000; // Convertir de segundos a milisegundos
 
             state.token = token;
-            state.expiration = expiration; */
+            state.expiration = expiration; 
+            const userId = decodedToken.userId;
+            */
+      console.log("Payload: " + action.payload);
       state.isAuthenticated = action.payload;
 
       /* localStorage.setItem("authToken", token); */
@@ -25,7 +29,7 @@ const authSlice = createSlice({
       state.token = null;
       state.expiration = null;
       state.isAuthenticated = false;
-
+      state.userId = null;
       /* localStorage.removeItem("authToken"); */
     },
   },
