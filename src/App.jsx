@@ -1,15 +1,27 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { RouterProvider } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { getTheme } from "./Util/MuiTheme";
-import Button from "@mui/material/Button";
 import router from "./router/router"
+import { setDarkMode } from "./store/themeReducer";
 import "./App.css";
 
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const dispatch = useDispatch(); 
+  const darkMode = useSelector((state) => state.theme.darkMode);
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem("darkMode");
+    if (savedDarkMode !== null) {
+      dispatch(setDarkMode(savedDarkMode === "true"));
+    } else {
+      dispatch(setDarkMode(true));
+    }
+  }, [dispatch]);
+  
 
   const theme = getTheme(darkMode);
 
@@ -22,16 +34,9 @@ function App() {
     root.style.setProperty('--paper-color', theme.palette.background.paper);
   }, [theme]);
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div style={{ textAlign: "center", padding: "1rem" }}>
-        <Button variant="contained" onClick={toggleDarkMode}>
-          Cambiar a {darkMode ? "Claro" : "Oscuro"}
-        </Button>
-      </div>
       <RouterProvider router={router} />
     </ThemeProvider>
   );
