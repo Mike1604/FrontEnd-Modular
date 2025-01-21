@@ -105,8 +105,8 @@ export default function SignUp() {
     last_name: "",
     email: "",
     password: "",
-    primary_language: "",
-    secondary_language: "",
+    primary_language: "Spanish",
+    secondary_language: "English",
     passwordConfirmation: "",
   });
 
@@ -141,7 +141,7 @@ export default function SignUp() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
 
       if (!response.ok) {

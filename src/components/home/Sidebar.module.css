@@ -1,13 +1,19 @@
+.side-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  box-shadow: -0.5px 0 0 var(--secondary-color) inset;
+  height: 100vh;
+  gap: 1rem;
+}
+
 .sidebar-section {
   background-color: var(--background-color);
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  box-shadow: -0.5px 0 0 var(--secondary-color) inset;
+  margin: 0px 10px;
   transition: all ease 0.3s;
-  position: sticky;
-  top: 0;
 }
 
 .header-title {
@@ -21,4 +27,10 @@
 .header-title h1,
 .header-title svg {
   font-size: 1.5rem;
+}
+
+.logout{
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
 }

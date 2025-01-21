@@ -3,6 +3,12 @@
   flex-flow: column wrap;
   justify-content: center;
   align-items: center; 
-  height: 100vh; 
+  min-height: 100vh;
   gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 1rem;
+  }
 }

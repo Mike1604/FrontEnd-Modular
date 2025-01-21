@@ -15,7 +15,7 @@ export default function AccountConfirmed() {
         />
       </div>
       <div className={loginStyles.submitContainer}>
-        <Link to="/">
+        <Link to="/myaccount">
           <Button variant="outlined">
             <h2>Finalizar Registro</h2>
           </Button>

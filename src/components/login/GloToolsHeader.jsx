@@ -3,7 +3,7 @@ import styles from './LoginHeader.module.css';
 import { useNavigate } from 'react-router';
 
 export default function GlotoolsHeader({ className }) {
-  const navigate = useNavigate(); // Hook para navegación
+  const navigate = useNavigate();
 
   const handleClick = () => {
     console.log("here");

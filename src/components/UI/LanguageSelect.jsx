@@ -1,9 +1,9 @@
 import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-const LanguageSelect = ({ label, name, value, handleChange }) => {
+const LanguageSelect = ({ label, name, value, handleChange, disabled }) => {
   const languages = ["English", "Spanish", "French", "German", "Italian"];
-  
+
   return (
     <FormControl required margin="normal" fullWidth>
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
@@ -11,10 +11,11 @@ const LanguageSelect = ({ label, name, value, handleChange }) => {
         labelId={`${name}-label`}
         id={name}
         name={name}
-        value={value}
+        value={value} 
         onChange={handleChange}
         label={label}
         displayEmpty
+        disabled={disabled}
       >
         {languages.map((language, index) => (
           <MenuItem key={index} value={language}>

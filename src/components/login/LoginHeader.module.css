@@ -14,7 +14,6 @@
 }
 
 .header-div h1 {
-  margin: 0;
   line-height: 1;
 }
 
@@ -24,4 +23,10 @@
 
 .header-div:hover {
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header-div h1 {
+    font-size: 2rem;
+  }
 }

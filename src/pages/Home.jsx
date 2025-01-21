@@ -1,6 +1,6 @@
-export default function Home({ gridClass }) {
+export default function Home() {
   return (
-    <div className={`${gridClass || ""}`}>
+    <div>
       <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever

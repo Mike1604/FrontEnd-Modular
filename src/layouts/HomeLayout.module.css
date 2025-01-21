@@ -7,6 +7,7 @@
 
 .sidebar-grid {
   grid-row: span 2;
+  height: 100vh;
 }
 
 .navbar-grid {
@@ -15,7 +16,6 @@
 
 .outlet-grid {
   grid-row: span 1;
-  margin: 10px;
   overflow-y: auto;
 }
 

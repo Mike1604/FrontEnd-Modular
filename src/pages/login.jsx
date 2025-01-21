@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   return (
-    <main className={loginFormStyles.formContainer}>
+    <main>
       <TextContainer text={"Iniciar sesión"}></TextContainer>
 
       <form onSubmit={handleSubmit} noValidate>
