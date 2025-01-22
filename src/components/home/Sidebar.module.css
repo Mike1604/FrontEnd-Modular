@@ -4,6 +4,7 @@
   box-shadow: -0.5px 0 0 var(--secondary-color) inset;
   height: 100vh;
   gap: 1rem;
+  transition: all 0.3s ease;
 }
 
 .sidebar-section {
@@ -13,6 +14,9 @@
   align-items: center;
   margin: 0px 10px;
   transition: all ease 0.3s;
+  gap: 1rem;
+  overflow: hidden;
+  color: #BEBEBE; 
 }
 
 .header-title {

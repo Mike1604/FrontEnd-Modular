@@ -14,6 +14,13 @@
   background-color: var(--secondary-color);
 }
 
+.divider {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 10px 0;
+}
+
 .search-responsive.MuiSvgIcon-root,
 .hamburger-menu-icon.MuiSvgIcon-root {
   display: none;

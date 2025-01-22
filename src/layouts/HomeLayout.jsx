@@ -8,7 +8,6 @@ export default function HomeLayout() {
   const [isSideBarActive, setSidebarActive] = useState(false);
 
   const onToggleSideBar = () => {
-    console.log("here ", isSideBarActive);
     setSidebarActive((prev) => !prev);
   };
 

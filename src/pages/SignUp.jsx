@@ -10,7 +10,7 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 import { Link } from "react-router";
 
 import loginFormStyles from "../pages/Login.module.css";
-import TextContainer from "../components/UI/TextContainer";
+import TextWithLinesContainer from "../components/UI/TextWithLinesContainer";
 import AccountConfirmed from "../components/login/AccountConfirmed";
 import PasswordField from "../components/UI/PasswordField";
 import LanguageSelect from "../components/UI/LanguageSelect";
@@ -158,12 +158,12 @@ export default function SignUp() {
 
   return (
     <main>
-      <TextContainer text="Crear Cuenta" />
+      <TextWithLinesContainer text="Crear Cuenta" />
       {confirmationVisible ? (
         <AccountConfirmed />
       ) : (
         <>
-          <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmit} noValidate className={loginFormStyles["login-form"]}>
             {step === 1 && (
               <StepOne formData={formData} handleChange={handleChange} />
             )}
@@ -187,7 +187,7 @@ export default function SignUp() {
             </div>
           </form>
           
-          <TextContainer text="ó" />
+          <TextWithLinesContainer text="ó" />
 
           <div className={loginFormStyles.submitContainer}>
             <Link to="/login">

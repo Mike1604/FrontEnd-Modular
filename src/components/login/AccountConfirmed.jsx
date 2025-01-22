@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { Link } from "react-router";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import loginStyles from "../../pages/Login.module.css";
-import TextContainer from "../UI/TextContainer";
+import TextWithLinesContainer from "../UI/TextWithLinesContainer";
 
 export default function AccountConfirmed() {
   return (
@@ -28,7 +28,7 @@ export default function AccountConfirmed() {
           </Button>
         </Link>
       </div>
-      <TextContainer></TextContainer>
+      <TextWithLinesContainer></TextWithLinesContainer>
     </>
   );
 }

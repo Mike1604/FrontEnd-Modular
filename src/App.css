@@ -5,7 +5,11 @@
   --text-color: #f5f5f5;
 }
 
-
+a {
+  text-decoration: none;
+  color: inherit;
+  display: contents;
+}
 
 body {
   background-color: var(--bg-color);

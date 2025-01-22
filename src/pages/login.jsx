@@ -3,7 +3,7 @@ import { TextField, IconButton, Button } from "@mui/material";
 import { Link } from "react-router";
 import loginFormStyles from "../pages/Login.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
-import TextContainer from "../components/UI/TextContainer";
+import TextWithLinesContainer from "../components/UI/TextWithLinesContainer";
 import PasswordField from "../components/UI/PasswordField";
 
 export default function Login() {
@@ -42,9 +42,9 @@ export default function Login() {
 
   return (
     <main>
-      <TextContainer text={"Iniciar sesión"}></TextContainer>
+      <TextWithLinesContainer text={"Iniciar sesión"}></TextWithLinesContainer>
 
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate className={loginFormStyles["login-form"]}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -70,7 +70,7 @@ export default function Login() {
         </div>
       </form>
 
-      <TextContainer text={"ó"}></TextContainer>
+      <TextWithLinesContainer text={"ó"}></TextWithLinesContainer>
 
       <div className={loginFormStyles.submitContainer}>
         <Link to="/SignUp">

@@ -1,16 +1,16 @@
 .home-container {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 220px 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
-  transition: grid-template-columns 0.3s ease; 
+  transition: all 0.3s ease;
 }
 
 .sidebar-grid {
   grid-row: span 2;
   height: 100vh;
   overflow: hidden;
-  transition: width 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .navbar-grid {
@@ -24,23 +24,18 @@
 
 @media (max-width: 800px) {
   .home-container {
-    grid-template-columns: 1fr; 
+    grid-template-columns: auto 1fr; 
     height: 100vh; 
     overflow: hidden; 
   }
 
   .sidebar-grid {
-    display: none;
     width: 0;
-  }
-
-  .home-container.active {
-    grid-template-columns: 200px 1fr; 
   }
 
   .sidebar-grid.active {
     display: grid;
-    width: 200px; 
+    width: 220px; 
     height: 100vh;
   }
 }
