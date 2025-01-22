@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import MenuIcon from '@mui/icons-material/Menu';
 
 import SearchBar from "../UI/SearchBar";
 import NavBarStyles from "./NavBar.module.css";
@@ -11,7 +12,7 @@ import NavBarStyles from "./NavBar.module.css";
 import { toggleDarkMode } from "../../store/themeReducer";
 import { getUserData } from "../../services/userService";
 
-export default function NavBar({ gridClass }) {
+export default function NavBar({ gridClass, onToggleSideBar }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = useSelector((state) => state.auth.userId);
@@ -41,8 +42,12 @@ export default function NavBar({ gridClass }) {
 
   return (
     <nav className={`${gridClass || ""}`}>
-      <SearchBar className={NavBarStyles["searchBar"]}></SearchBar>
+      <MenuIcon 
+        className={"hamburger-menu-icon"} 
+        onClick={onToggleSideBar} 
+      />
       <div className={NavBarStyles["user-options"]}>
+        <SearchBar className={NavBarStyles["searchBar"]} />
         <WbSunnyOutlinedIcon onClick={toggleTheme} />
         <NotificationsNoneIcon />
         <div
@@ -52,7 +57,9 @@ export default function NavBar({ gridClass }) {
         >
           {userData ? (
             <>
-              <Avatar src={userData.profile_picture_path} >{`${userData.first_name?.[0]}${userData.last_name?.[0]}`}</Avatar>
+              <Avatar src={userData.profile_picture_path}>
+                {`${userData.first_name?.[0]}${userData.last_name?.[0]}`}
+              </Avatar>
               <h2>{`${userData.first_name} ${userData.last_name}`}</h2>
             </>
           ) : (

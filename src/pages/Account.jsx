@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import LanguageSelect from "../components/UI/LanguageSelect";
 
-import "./Account.css"; // Importa el archivo CSS global
+import "./Account.css"; 
 
 import {
   getUserData,

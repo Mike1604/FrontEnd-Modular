@@ -1,0 +1,42 @@
+.textActions {
+  display: flex;
+  flex-direction: row nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.textActions::before,
+.textActions::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--secondary-color);
+}
+
+.search-responsive.MuiSvgIcon-root,
+.hamburger-menu-icon.MuiSvgIcon-root {
+  display: none;
+  transition: transform 0.3s ease; 
+}
+
+.search-responsive.MuiSvgIcon-root:hover,
+.hamburger-menu-icon.MuiSvgIcon-root:hover {
+  cursor: pointer;
+  transform: rotate(360deg); 
+}
+
+@media(max-width: 800px) {
+  .search-input.MuiFormControl-root{
+    display: none;
+  } 
+
+  .search-responsive.MuiSvgIcon-root {
+    display: block;
+  }
+
+  .hamburger-menu-icon.MuiSvgIcon-root {
+    display: block;
+  }
+  
+}

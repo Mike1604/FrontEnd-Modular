@@ -9,7 +9,9 @@ nav {
 
 nav h2 {
   font-size: 0.8rem;
+  white-space: nowrap;
 }
+
 
 .searchBar input {
   height: 100%;
@@ -23,6 +25,7 @@ nav h2 {
   flex-flow: row nowrap;
   gap: 1.5rem;
   align-items: center;
+  justify-content: end;
 }
 
 .user-options svg {
@@ -45,5 +48,8 @@ nav h2 {
   cursor: pointer;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
+  .avatar-cont h2 {
+    display: none;
+  }
 }
