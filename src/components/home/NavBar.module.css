@@ -5,6 +5,7 @@ nav {
   gap: 1rem;
   align-items: center;
   box-shadow: 0 1px 1px var(--secondary-color) ;
+  z-index: 2;
 }
 
 nav h2 {

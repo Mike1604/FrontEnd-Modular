@@ -30,10 +30,13 @@ function App() {
 
     root.style.setProperty('--primary-color', theme.palette.primary.main);
     root.style.setProperty('--secondary-color', theme.palette.secondary.main);
+    root.style.setProperty('--third-color', theme.palette.third.main);
     root.style.setProperty('--background-color', theme.palette.background.default);
+    root.style.setProperty('--background-secondary', theme.palette.background.secondary);
+    root.style.setProperty('--shadow-secondary', theme.palette.shadow.secondary);
     root.style.setProperty('--paper-color', theme.palette.background.paper);
   }, [theme]);
-
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

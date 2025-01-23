@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import LanguageSelect from "../components/UI/LanguageSelect";
 
-import "./Account.css"; 
+import "./Account.css";
 
 import {
   getUserData,
@@ -106,7 +106,7 @@ export default function Account() {
 
   return (
     <div className="accountContainer">
-      <h2 className="section-title">Configuración del usuario</h2>
+      <h2 className="title-half-line">Configuración del usuario</h2>
       <div className="profileSection">
         <div className="profilePictureWrapper" onClick={handleAvatarClick}>
           <Avatar

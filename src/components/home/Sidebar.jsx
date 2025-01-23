@@ -29,7 +29,7 @@ export default function Sidebar({ gridClass, activeClass }) {
           icon={HomeIcon}
           options={[
             { title: "Mi cuenta", route: "/myaccount" },
-            { title: "Grupo", route: "/groups" },
+            { title: "Grupos", route: "/groups" },
           ]}
         />
       </div>

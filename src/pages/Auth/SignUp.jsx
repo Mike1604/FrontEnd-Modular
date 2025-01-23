@@ -9,11 +9,11 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 
 import { Link } from "react-router";
 
-import loginFormStyles from "../pages/Login.module.css";
-import TextWithLinesContainer from "../components/UI/TextWithLinesContainer";
-import AccountConfirmed from "../components/login/AccountConfirmed";
-import PasswordField from "../components/UI/PasswordField";
-import LanguageSelect from "../components/UI/LanguageSelect";
+import loginFormStyles from "../Auth/Login.module.css";
+import TextWithLinesContainer from "../../components/UI/TextWithLinesContainer";
+import AccountConfirmed from "../../components/login/AccountConfirmed";
+import PasswordField from "../../components/UI/PasswordField";
+import LanguageSelect from "../../components/UI/LanguageSelect";
 
 const StepOne = ({ formData, handleChange }) => (
   <>

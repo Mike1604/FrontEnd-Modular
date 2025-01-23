@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { TextField, IconButton, Button } from "@mui/material";
 import { Link } from "react-router";
-import loginFormStyles from "../pages/Login.module.css";
+import loginFormStyles from "../Auth/Login.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
-import TextWithLinesContainer from "../components/UI/TextWithLinesContainer";
-import PasswordField from "../components/UI/PasswordField";
+import TextWithLinesContainer from "../../components/UI/TextWithLinesContainer";
+import PasswordField from "../../components/UI/PasswordField";
 
 export default function Login() {
   const [email, setEmail] = useState("");

@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { Link } from "react-router";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
-import loginStyles from "../../pages/Login.module.css";
+import loginStyles from "../../pages/Auth/Login.module.css";
 import TextWithLinesContainer from "../UI/TextWithLinesContainer";
 
 export default function AccountConfirmed() {

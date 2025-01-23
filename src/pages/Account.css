@@ -8,21 +8,6 @@
   padding: 20px;
 }
 
-.section-title {
-  display: flex;
-  align-items: center;
-  font-size: 1.5rem;
-  margin: 20px 0;
-  width: 50%;
-}
-
-.section-title::after {
-  content: "";
-  flex-grow: 1;
-  height: 0.5px;
-  background-color: var(--secondary-color);
-  margin-left: 10px;
-}
 .profileSection {
   display: flex;
   align-items: center;
@@ -57,7 +42,7 @@
   position: absolute;
   bottom: 5px;
   right: 5px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #00000080;
   border-radius: 50%;
   color: white;
   padding: 5px;

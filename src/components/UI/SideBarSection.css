@@ -1,7 +1,7 @@
 .sidebar-section-cont {
   display: flex;
   flex-flow: column nowrap;
-  background-color: #252525;
+  background-color: var(--background-secondary);
   padding: 5px;
   border-radius: 8px;
   width: 100%;
@@ -23,11 +23,17 @@
 }
 
 .sidebar-section-title .MuiSvgIcon-root {
+  transition: transform 0.3s ease-in-out;
   font-size: 1.2rem;
 }
 
 .sidebar-section-title {
   font-size: 0.8rem;
+}
+
+
+.icon-active.MuiSvgIcon-root {
+  transform: rotate(90deg);
 }
 
 .sidebar-section-options {
@@ -47,7 +53,7 @@
   padding: 10px 15px;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
-  color: #bebebe;
+  color: var(--third-color);
 }
 
 .sidebar-option:hover {
