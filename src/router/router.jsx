@@ -9,6 +9,8 @@ import SignUp from "../pages/Auth/SignUp";
 import Groups from "../pages/Groups/Groups";
 import GroupsSection from "../pages/Groups/GroupsSection";
 import AddGroup from "../pages/Groups/AddGroup";
+import GroupDetail from "../pages/Groups/GroupDetail";
+import EditGroup from "../pages/Groups/EditGroup";
 import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            path: "", 
+            path: "",
             element: (
               <ProtectedRoute>
                 <GroupsSection />
@@ -50,10 +52,26 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "add-group", 
+            path: "add-group",
             element: (
               <ProtectedRoute>
                 <AddGroup />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <ProtectedRoute>
+                <GroupDetail />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "/groups/:id/edit",
+            element: (
+              <ProtectedRoute>
+                <EditGroup />
               </ProtectedRoute>
             ),
           },

@@ -31,11 +31,11 @@
 .groups-content {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: start;
   gap: 1.5rem;
 }
 
-.add-group-card {
+.group-card {
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
@@ -44,12 +44,7 @@
   align-items: center;
 }
 
-.icon-container:hover {
-  border-color: black;
-  background-color: gray;
-}
-
-.icon-container {
+.group-image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,15 +54,42 @@
   box-shadow: -6px 0px 20px var(--shadow-secondary);
   border-radius: 10px;
   background-color: var(--background-secondary);
+  transition: all 0.3s ease-in-out;
 }
 
-.add-icon.MuiSvgIcon-root {
+.group-image-container:hover {
+  box-shadow: -6px 0px 30px rgba(0, 0, 0, 0.15);  
+  background-color: rgba(0, 0, 0, 0.05);  
+  transform: scale(1.05); 
+}
+
+.group-icon.MuiSvgIcon-root {
   font-size: 4rem;
+  transition: transform 0.3s ease-in-out;
 }
 
-.icon-container:hover .add-icon.MuiSvgIcon-root {
-  transform: rotate(360deg);
-  transition: transform 0.5s ease-in-out;
+.group-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.group-image-container:hover .group-image {
+  opacity: 0.85;  
+}
+
+.group-image-container:hover .group-icon.MuiSvgIcon-root {
+  transform: rotate(45deg);  
+  transition: transform 0.3s ease-in-out;
+}
+
+.group-name {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--text-primary);
 }
 
 .new-group-container {
@@ -148,15 +170,15 @@
 .new-group-input {
   display: flex;
   flex-direction: column;
-  gap: 1rem; 
+  gap: 1rem;
   width: 100%;
-  max-width: 400px; 
-  margin: 0 auto; 
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .new-group-input .MuiFormControl-root {
-  width: 100%; 
-  min-width: 250px; 
+  width: 100%;
+  min-width: 250px;
 }
 
 .form-actions {
@@ -168,8 +190,7 @@
   width: 100%;
 }
 
-.form-actions .MuiButtonBase-root{
-  width: 100%; 
-  min-width: 100px; 
+.form-actions .MuiButtonBase-root {
+  width: 100%;
+  min-width: 100px;
 }
-

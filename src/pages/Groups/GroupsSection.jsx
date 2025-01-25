@@ -1,9 +1,9 @@
 import { useOutletContext } from "react-router";
 
 import QueueIcon from "@mui/icons-material/Queue";
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 
-import AddGroupItem from "../../components/UI/Groups/AddGroupItem";
+import AddGroupItem from "./AddGroupItem";
+import GroupItem from "./GroupItem";
 
 export default function GroupsSection() {
   const { groups } = useOutletContext();
@@ -11,10 +11,6 @@ export default function GroupsSection() {
   return (
     <section>
       <div className="group-options-cont">
-        <div className="group-option">
-          <h3>Editar grupos</h3>
-          <ModeEditOutlinedIcon />
-        </div>
         <div className="group-option">
           <h3>Unirme a un grupo</h3>
           <QueueIcon />
@@ -24,10 +20,11 @@ export default function GroupsSection() {
       <div className="groups-content">
         <AddGroupItem />
         {groups && groups.length > 0 ? (
-          groups.map((group, index) => <p key={index}>{group.group_name}</p>)
+          groups.map((group, index) => <GroupItem key={index} group={group}/>)
         ) : (
-          <p key="no-groups">No hay grupos disponibles.</p>
+          <h3 key="no-groups">No hay grupos disponibles.</h3>
         )}
+        
       </div>
     </section>
   );
