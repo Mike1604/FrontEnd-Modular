@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useOutletContext } from "react-router";
-import { Link } from "react-router";
+import { useNavigate, useOutletContext, Link } from "react-router";
 import { TextField, Button } from "@mui/material";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
@@ -46,11 +45,10 @@ export default function AddGroup() {
       const res = await createGroup(formData);
 
       if (res && res.groupdata) {
-        /* navigate(`/groups/${res.id}`); */
         console.log("res", res.groupdata);
         
         handleNewGroup(res.groupdata);
-        navigate(`/groups/`);
+        navigate(`/groups/${res.groupdata.id}`);
       }
     } catch (error) {
       alert("Hubo un error al crear el grupo. Inténtalo de nuevo.");
@@ -77,6 +75,9 @@ export default function AddGroup() {
 
   return (
     <div className="new-group-container">
+      <Link to={"/groups"}>
+        <h2 className="title-right-line">Mis grupos</h2>
+      </Link>
       <h2 className="title-half-line">Crear Grupo</h2>
       <form className="new-group-form" onSubmit={handleSubmit}>
         <div className="group-photo-section">

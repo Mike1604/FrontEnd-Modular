@@ -36,7 +36,7 @@ export default function NavBar({ gridClass, onToggleSideBar }) {
   }, [userId]);
 
   return (
-    <nav className={`${gridClass || ""}`}>
+    <nav className={`${NavBarStyles["main-nav"]} ${gridClass || ""}`}>
       <MenuIcon className={"hamburger-menu-icon"} onClick={onToggleSideBar} />
       <div className={NavBarStyles["user-options"]}>
         <SearchBar className={NavBarStyles["searchBar"]} />

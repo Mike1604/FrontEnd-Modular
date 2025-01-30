@@ -1,18 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router";
-
+import { Link } from "react-router";
 import GroupsIcon from "@mui/icons-material/Groups";
 
 export default function GroupItem({ group }) {
-  const navigate = useNavigate();
-
-    const handleClick = (e) => {
-        navigate(`/groups/${group.id}`)
-        
-    }
-
   return (
-    <div className="group-card" onClick={handleClick}>
+    <Link to={`/groups/${group.id}`} className="group-card">
       <div className="group-image-container">
         {group.group_picture_path ? (
           <img
@@ -25,6 +17,6 @@ export default function GroupItem({ group }) {
         )}
       </div>
       <h3 className="group-name">{group.group_name}</h3>
-    </div>
+    </Link>
   );
 }

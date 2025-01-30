@@ -1,7 +1,7 @@
 .groups-page {
   display: grid;
-  grid-template-rows: auto 1fr;
-  padding: 10px 2rem;
+  grid-template-rows: auto auto 1fr;
+  padding: 10px 1rem;
   transition: all 0.3s ease-in-out;
   min-height: 100%;
 }
@@ -58,9 +58,9 @@
 }
 
 .group-image-container:hover {
-  box-shadow: -6px 0px 30px rgba(0, 0, 0, 0.15);  
-  background-color: rgba(0, 0, 0, 0.05);  
-  transform: scale(1.05); 
+  box-shadow: -6px 0px 30px rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
 }
 
 .group-icon.MuiSvgIcon-root {
@@ -77,11 +77,11 @@
 }
 
 .group-image-container:hover .group-image {
-  opacity: 0.85;  
+  opacity: 0.85;
 }
 
 .group-image-container:hover .group-icon.MuiSvgIcon-root {
-  transform: rotate(45deg);  
+  transform: rotate(45deg);
   transition: transform 0.3s ease-in-out;
 }
 
@@ -138,6 +138,7 @@
 .upload-btn.MuiSvgIcon-root {
   font-size: 5rem;
   cursor: pointer;
+  color: #898888;
 }
 
 .group-image-preview {
@@ -193,4 +194,10 @@
 .form-actions .MuiButtonBase-root {
   width: 100%;
   min-width: 100px;
+}
+
+@media (max-width: 768px) {
+  .groups-content {
+    justify-content: center;
+  }
 }

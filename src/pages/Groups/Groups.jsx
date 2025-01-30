@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
-import { Link } from "react-router";
-import { getGroups } from "../../services/groupsSevice";
+import { getGroup, getGroups } from "../../services/groupsSevice";
 
 export default function Groups() {
-  const [groups, setGroups] = useState(["yo"]);
+  const [groups, setGroups] = useState([]);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -27,12 +26,19 @@ export default function Groups() {
     }
   };
 
-  return (
-    <div className="groups-page">
-      <Link to={"/groups"}>
-        <h2 className="title-right-line">Mis grupos</h2>
-      </Link>
-      <Outlet context={{ groups, handleNewGroup }} />
-    </div>
-  );
+  const handleGroupUpdate = (groupData) => {
+    console.log(groupData);
+
+    setGroups((prevGroups) =>
+      prevGroups.map((group) =>
+        group.id === groupData.id
+          ? {
+              ...groupData
+            }
+          : group
+      )
+    );
+  };
+
+  return <Outlet context={{ groups, handleNewGroup, handleGroupUpdate }} />;
 }

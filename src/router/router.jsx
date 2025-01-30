@@ -10,14 +10,14 @@ import Groups from "../pages/Groups/Groups";
 import GroupsSection from "../pages/Groups/GroupsSection";
 import AddGroup from "../pages/Groups/AddGroup";
 import GroupDetail from "../pages/Groups/GroupDetail";
-import EditGroup from "../pages/Groups/EditGroup";
 import NotFound from "../pages/NotFound";
+import ErrorPage from "../pages/ErrorPage"; // Página de error genérica
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement: <NotFound />,
+    errorElement: <ErrorPage />, // Página de error genérica
     children: [
       {
         path: "/",
@@ -67,14 +67,6 @@ const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
-          {
-            path: "/groups/:id/edit",
-            element: (
-              <ProtectedRoute>
-                <EditGroup />
-              </ProtectedRoute>
-            ),
-          },
         ],
       },
     ],
@@ -88,6 +80,10 @@ const router = createBrowserRouter([
     path: "/SignUp",
     element: <LoginLayout />,
     children: [{ path: "", element: <SignUp /> }],
+  },
+  {
+    path: "*",
+    element: <NotFound />, // Página para rutas desconocidas
   },
 ]);
 

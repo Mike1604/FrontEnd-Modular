@@ -1,0 +1,79 @@
+.group-section {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  max-height: 100%;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.title-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-detail-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.code-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.code-section h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #7b7b7b;
+  letter-spacing: 2px;
+}
+
+.group-navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.group-navbar ul {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-button {
+  background: none;
+  border: none;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-button.active {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.navbar-button:hover {
+  text-decoration: underline;
+}
+
+.group-data {
+  overflow-y: auto;
+}
+
+.loading-cont,
+.error-message {
+  grid-row: 2 span;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+

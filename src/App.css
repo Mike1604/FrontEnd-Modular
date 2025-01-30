@@ -11,3 +11,21 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
 }
+
+::-webkit-scrollbar {
+  width: 8px; /* Ancho de la scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color de fondo del track (la pista) */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color del "thumb" (la barra de desplazamiento) */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color al pasar el mouse por encima */
+}

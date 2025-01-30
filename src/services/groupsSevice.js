@@ -48,6 +48,7 @@ export const getGroup = async (groupId) => {
     const formData = new FormData();
     formData.append("group_name", data.group_name);
     formData.append("group_description", data.group_description);
+    
     if (data.group_picture) {
       formData.append("group_picture", data.group_picture);
     }

@@ -13,9 +13,7 @@ export default function HomeLayout() {
 
   return (
     <div
-      className={`${HomeStyles["home-container"]} ${
-        isSideBarActive ? HomeStyles.active : ""
-      }`}
+      className={`${HomeStyles["home-container"]}`}
     >
       <Sidebar
         gridClass={HomeStyles["sidebar-grid"]}

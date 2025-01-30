@@ -1,0 +1,59 @@
+.group-config-container {
+  overflow-y: auto;
+  padding: 0px 20px;
+}
+
+.group-info-header {
+  margin: 15px 0px;
+}
+
+.edit-group-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: auto;
+  align-items: center;
+}
+
+.edit-group-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  gap: 1.5rem;
+}
+
+.edit-group-photo-section {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.inactive.image-edit-icon.MuiSvgIcon-root {
+  display: none;
+}
+
+.inactive.upload-card:hover {
+  cursor: auto;
+  border: none;
+}
+
+
+.edit-group-inputs {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.edit-group-inputs .MuiFormControl-root {
+  width: 100%;
+}
+
+.form-actions .inactive {
+  display: none;
+}
