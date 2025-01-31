@@ -33,12 +33,18 @@ export default function Groups() {
       prevGroups.map((group) =>
         group.id === groupData.id
           ? {
-              ...groupData
+              ...groupData,
             }
           : group
       )
     );
   };
 
-  return <Outlet context={{ groups, handleNewGroup, handleGroupUpdate }} />;
+  const handleGroupDeleted = async (groupId) => {
+    setGroups((prevGroups) =>
+      prevGroups.filter((group) => group.id !== groupId)
+    );
+  };
+
+  return <Outlet context={{ groups, handleNewGroup, handleGroupUpdate, handleGroupDeleted }} />;
 }
