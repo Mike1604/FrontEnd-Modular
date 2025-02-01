@@ -6,6 +6,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import sidebarStyles from "./Sidebar.module.css";
 import GlotoolsHeader from "../login/GloToolsHeader";
 import SideBarSection from "../UI/SideBarSection";
+import { PlayCircle } from "@mui/icons-material";
 
 export default function Sidebar({ gridClass, activeClass }) {
   const navigate = useNavigate();  
@@ -30,6 +31,19 @@ export default function Sidebar({ gridClass, activeClass }) {
           options={[
             { title: "Mi cuenta", route: "/myaccount" },
             { title: "Grupos", route: "/groups" },
+          ]}
+        />
+      </div>
+      <div className={`${sidebarStyles["sidebar-section"]}`}>
+        <SideBarSection
+          title="Leitner"
+          icon={PlayCircle}
+          options={[
+            { title: "Inicio", route: "/leitner" },
+            { title: "Sesion rapida", route: "/leitner" },
+            { title: "Crear carta automaticamente", route: "/crear-carta" },
+            { title: "Crear nueva baraja", route: "/crear-baraja" },
+            { title: "Configurar", route: "/leitner" },
           ]}
         />
       </div>
