@@ -33,7 +33,7 @@ p {
     gap:10px;
 }
 
-input {
+.form_input {
     background-color: #252525;
     border: none;
     color: white;
@@ -43,7 +43,7 @@ input {
     font-size: 1.0em;
 }
 
-textarea {
+.form_text_area {
     background-color: #252525;
     border: none;
     color: white;

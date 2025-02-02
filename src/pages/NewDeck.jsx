@@ -46,9 +46,9 @@ export default function NewDeck() {
 
     <div className="form">
         <p>Dale un nombre a tu paquete de cartas</p>
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Frances para novatos" />
+        <input className="form_input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Frances para novatos" />
         <p>Describe tu paquete de cartas</p>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe tu nuevo paquete de cartas" />
+        <textarea className="form_text_area" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe tu nuevo paquete de cartas" />
         <div className="button_container">
             <button className="ok_button" onClick={createDeck}>Crear el paquete</button>
             <button className="cancel_button">Cancelar</button>
