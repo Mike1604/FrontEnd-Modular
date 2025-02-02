@@ -202,20 +202,35 @@ p {
 }
 
 .cardbox {
-    min-width: 400px;
-    min-height: 500px;
-    background-color: #252525;
+    min-width: 320px;
     border-radius: 5px;
-    padding: 20px;
 }
 
+.cardbox-fill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #252525;
+    height: 0%;
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: all .5s ease-in-out;
+}
+
+.number {
+    margin-top: 50px;
+    font-size: 10em;
+}
+
+.stat_text {
+    font-size: 1.5em;
+}
 
 .cardbox-big {
     min-width: 900px;
-    min-height: 500px;
     background-color: #252525;
     border-radius: 5px;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .decks_container {
@@ -248,3 +263,4 @@ p {
     padding: 20px 0;
     justify-content: center;
 }
+

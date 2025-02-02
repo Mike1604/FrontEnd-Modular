@@ -47,7 +47,7 @@ export default function NewCard() {
               text: value,
               user_language: "Spanish",
               target_language: "English",
-              style: "anime",
+              style: "default",
               "Access-Control-Allow-Origin": "*"
             })
         };

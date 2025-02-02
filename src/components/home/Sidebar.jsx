@@ -6,7 +6,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import sidebarStyles from "./Sidebar.module.css";
 import GlotoolsHeader from "../login/GloToolsHeader";
 import SideBarSection from "../UI/SideBarSection";
-import { PlayCircle } from "@mui/icons-material";
+import ExploreIcon from '@mui/icons-material/Explore';
 
 export default function Sidebar({ gridClass, activeClass }) {
   const navigate = useNavigate();  
@@ -33,19 +33,17 @@ export default function Sidebar({ gridClass, activeClass }) {
             { title: "Grupos", route: "/groups" },
           ]}
         />
-      </div>
-      <div className={`${sidebarStyles["sidebar-section"]}`}>
         <SideBarSection
           title="Leitner"
-          icon={PlayCircle}
+          icon={ExploreIcon}
           options={[
             { title: "Inicio", route: "/leitner" },
-            { title: "Sesion rapida", route: "/leitner" },
+            { title: "Sesion rapida", route: "/study" },
             { title: "Crear carta automaticamente", route: "/crear-carta" },
             { title: "Crear nueva baraja", route: "/crear-baraja" },
             { title: "Configurar", route: "/leitner" },
           ]}
-        />
+          />
       </div>
       <div className={sidebarStyles.logout}>
         <Button variant="outlined" onClick={handleLogout}>

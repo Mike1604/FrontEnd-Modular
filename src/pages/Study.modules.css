@@ -12,6 +12,7 @@
     height: 23px;
     width: 100%;
     border-radius:5px;
+    transition: width 1s ease-in-out;
 }
 
 .topic {
@@ -42,6 +43,7 @@
     box-sizing: border-box;
     border-radius: 10px;
     cursor: pointer;
+
 }
 
 .card > img {
@@ -94,4 +96,19 @@
 .flipper {
     position: absolute;
     bottom: 30px;
+}
+
+.completed {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+    font-size: 10em;
+    color: white;
+}
+
+.completed > h1 {
+    font-size: 30px;
 }
