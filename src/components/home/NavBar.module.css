@@ -4,7 +4,7 @@
   padding: 10px;
   gap: 1rem;
   align-items: center;
-  box-shadow: 0 1px 1px var(--secondary-color) ;
+  border-bottom: 2px solid #2F2F2F;
   z-index: 2;
 }
 
