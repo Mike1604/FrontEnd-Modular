@@ -12,6 +12,11 @@ import AddGroup from "../pages/Groups/AddGroup";
 import GroupDetail from "../pages/Groups/GroupDetail";
 import NotFound from "../pages/NotFound";
 import ErrorPage from "../pages/ErrorPage"; // Página de error genérica
+import Leitner from "../pages/Leitner";
+import NewCard from "../pages/NewCard";
+import NewDeck from "../pages/NewDeck";
+import DeckView from "../pages/DeckView";
+import Study from "../pages/Study";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +37,44 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Account />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/leitner",
+        element: (
+          <ProtectedRoute>
+            <Leitner />
+          </ProtectedRoute>
+        ),
+      },{
+        path: "/crear-carta",
+        element: (
+          <ProtectedRoute>
+            <NewCard />
+          </ProtectedRoute>
+        ),
+      },{
+        path: "/crear-baraja",
+        element: (
+          <ProtectedRoute>
+            <NewDeck />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/view-deck",
+        element: (
+          <ProtectedRoute>
+            <DeckView />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/study",
+        element: (
+          <ProtectedRoute>
+            <Study />
           </ProtectedRoute>
         ),
       },
