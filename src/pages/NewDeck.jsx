@@ -50,8 +50,8 @@ export default function NewDeck() {
         <p>Describe tu paquete de cartas</p>
         <textarea className="form_text_area" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe tu nuevo paquete de cartas" />
         <div className="button_container">
-            <button className="ok_button" onClick={createDeck}>Crear el paquete</button>
-            <button className="cancel_button">Cancelar</button>
+            <button  className="deck_button ok_button" onClick={createDeck}>Crear el paquete</button>
+            <button className="deck_button cancel_button">Cancelar</button>
         </div>
     </div>
   </div>
