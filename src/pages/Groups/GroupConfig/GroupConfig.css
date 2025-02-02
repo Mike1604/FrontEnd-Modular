@@ -1,6 +1,6 @@
-.group-config-container {
+.group-section-container{
   overflow-y: auto;
-  padding: 0px 20px;
+  padding: 10px 20px 10px;
 }
 
 .group-info-header {
@@ -41,7 +41,6 @@
   border: none;
 }
 
-
 .edit-group-inputs {
   display: flex;
   flex-flow: column nowrap;
@@ -56,4 +55,44 @@
 
 .form-actions .inactive {
   display: none;
+}
+
+.danger-zone-sect {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 16px;
+  border: 1px solid #d32f2f;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.danger-zone-descr {
+  flex: 1;
+  min-width: 250px;
+  max-width: 70%;
+}
+
+.danger-zone-sect button {
+  flex-shrink: 0; 
+  white-space: nowrap;
+}
+
+@media (max-width: 500px) {
+  .danger-zone-sect {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .danger-zone-descr {
+    flex: 1;
+    min-width: 200px;
+    max-width: 100%;
+  }
+  
+
+  .danger-zone-sect button {
+    align-self: flex-start;
+  }
 }

@@ -15,8 +15,14 @@
 
 .group-detail-title {
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: bold;
   margin: 0;
+}
+
+.group-description {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
 .code-section {
@@ -75,5 +81,3 @@
   align-items: center;
   height: 100%;
 }
-
-

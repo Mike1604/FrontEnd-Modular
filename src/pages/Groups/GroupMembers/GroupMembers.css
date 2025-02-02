@@ -1,0 +1,111 @@
+.group-members-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.add-member-button {
+  font-size: 14px;
+  text-transform: none;
+}
+
+.data-grid-container {
+  height: 60vh;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.custom-data-grid .MuiDataGrid-root {
+  border: none;
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.member-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.member-photo {
+  width: 40px;
+  height: 40px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  background-color: var(--background-color);
+  border: var(--primary-color) 1px solid;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1000;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.suggestions-list {
+  max-height: 150px;
+  overflow-y: auto;
+  border-radius: 4px;
+}
+
+.MuiListItem-root.suggestion-item:hover {
+    cursor: pointer;
+}
+
+.MuiListItem-root.selected {
+    background-color: var(--background-secondary);
+}
+
+@media (max-width: 768px) {
+  .group-members-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .data-grid-container {
+    overflow-x: auto;
+  }
+
+  .member-photo {
+    width: 30px;
+    height: 30px;
+  }
+}
