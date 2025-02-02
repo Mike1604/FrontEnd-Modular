@@ -45,16 +45,12 @@ export default function GroupMembers({ group, isOwner }) {
         setMembers((members) => members.filter((member) => member.id !== memberId));
       }
     } catch (error) {
-      alert(
-        "Hubo un error al agregae el miembro a el grupo. Inténtalo de nuevo."
-      );
-      console.error("Error al elminar el miembro de el grupo:", error);
+      alert("Hubo un error al eliminar el miembro del grupo. Inténtalo de nuevo.");
+      console.error("Error al eliminar el miembro del grupo:", error);
     }
   };
 
   const handleMemberAdded = (user) => {
-    console.log(user);
-    
     setMembers((prevMembers) => [...prevMembers, user]);
   };
 
@@ -97,12 +93,15 @@ export default function GroupMembers({ group, isOwner }) {
     },
     {
       field: "since",
-      headerName: "Fecha de unión",
+      headerName: "Miembro desde",
       flex: 0.7,
       minWidth: 150,
       maxWidth: 250,
     },
-    {
+  ];
+
+  if (isOwner) {
+    columns.push({
       field: "delete",
       headerName: "",
       width: 100,
@@ -117,8 +116,8 @@ export default function GroupMembers({ group, isOwner }) {
             <DeleteIcon fontSize="small" />
           </IconButton>
         ) : null,
-    },
-  ];
+    });
+  }
 
   const rows = members.map((member) => ({
     id: member.id,
@@ -128,21 +127,22 @@ export default function GroupMembers({ group, isOwner }) {
     since: new Date(member.since).toLocaleDateString(),
     profile_picture_path: member.profile_picture_path,
   }));
-  console.log(rows);
 
   return (
     <section className="group-section-container">
       <header className="group-members-header">
         <h2>Lista de miembros</h2>
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<GroupAddOutlinedIcon />}
-          onClick={handleOpen}
-          className="add-member-button"
-        >
-          Agregar
-        </Button>
+        {isOwner && (
+          <Button
+            variant="outlined"
+            color="primary"
+            startIcon={<GroupAddOutlinedIcon />}
+            onClick={handleOpen}
+            className="add-member-button"
+          >
+            Agregar
+          </Button>
+        )}
       </header>
 
       <div className="data-grid-container">

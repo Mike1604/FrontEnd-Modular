@@ -6,6 +6,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { getGroup } from "../../services/groupsSevice";
 import "./GroupDetail.css";
+
+import GroupHome from "./GroupHome/GroupHome";
 import GroupConfig from "./GroupConfig/GroupConfig";
 import GroupMembers from "./GroupMembers/GroupMembers";
 
@@ -18,7 +20,7 @@ const GROUP_OPTIONS = {
 export default function GroupDetail() {
   const { id } = useParams();
   const userId = useSelector((state) => state.auth.userId);
-  
+
   const [group, setGroup] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
   const [section, setSection] = useState(GROUP_OPTIONS.INICIO);
@@ -65,7 +67,10 @@ export default function GroupDetail() {
 
 const Header = ({ group }) => (
   <div className="title-section">
-    <h1 className="group-detail-title">{group.group_name}</h1>
+    <div>
+      <h1 className="group-detail-title">{group.group_name}</h1>
+      <p className="group-description">{group.group_description}</p>
+    </div>
     <div className="code-section">
       <p>Código:</p>
       <h2>19302</h2>
@@ -76,7 +81,9 @@ const Header = ({ group }) => (
 const Navbar = ({ section, setSection, isOwner }) => {
   const options = isOwner
     ? Object.values(GROUP_OPTIONS)
-    : Object.values(GROUP_OPTIONS).filter((opt) => opt !== GROUP_OPTIONS.CONFIGURACION);
+    : Object.values(GROUP_OPTIONS).filter(
+        (opt) => opt !== GROUP_OPTIONS.CONFIGURACION
+      );
 
   return (
     <nav className="group-navbar">
@@ -99,11 +106,15 @@ const Navbar = ({ section, setSection, isOwner }) => {
 const Content = ({ section, group, isOwner }) => {
   switch (section) {
     case GROUP_OPTIONS.INICIO:
-      return <p>{group.group_description}</p>;
+      return <GroupHome group={group} />;
     case GROUP_OPTIONS.MIEMBROS:
-      return <GroupMembers group={group} isOwner={isOwner}/>;
+      return <GroupMembers group={group} isOwner={isOwner} />;
     case GROUP_OPTIONS.CONFIGURACION:
-      return isOwner ? <GroupConfig group={group} /> : <p>No tienes acceso a esta sección.</p>;
+      return isOwner ? (
+        <GroupConfig group={group} />
+      ) : (
+        <p>No tienes acceso a esta sección.</p>
+      );
     default:
       return <p>Sección no encontrada</p>;
   }
