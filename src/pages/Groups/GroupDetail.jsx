@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 import CircularProgress from "@mui/material/CircularProgress";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 import { getGroup } from "../../services/groupsSevice";
 import "./GroupDetail.css";
 import GroupConfig from "./GroupConfig/GroupConfig";
+import GroupMembers from "./GroupMembers/GroupMembers";
 
 const GROUP_OPTIONS = {
   INICIO: "Inicio",
@@ -16,7 +17,10 @@ const GROUP_OPTIONS = {
 
 export default function GroupDetail() {
   const { id } = useParams();
+  const userId = useSelector((state) => state.auth.userId);
+  
   const [group, setGroup] = useState(null);
+  const [isOwner, setIsOwner] = useState(false);
   const [section, setSection] = useState(GROUP_OPTIONS.INICIO);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,6 +30,7 @@ export default function GroupDetail() {
       try {
         const data = await getGroup(id);
         setGroup(data);
+        setIsOwner(data.owner === userId);
       } catch (err) {
         setError("Error cargando el grupo.");
         console.error("Error fetching group details:", err);
@@ -35,7 +40,7 @@ export default function GroupDetail() {
     };
 
     fetchGroupDetails();
-  }, [id]);
+  }, [id, userId]);
 
   if (loading) {
     return (
@@ -52,8 +57,8 @@ export default function GroupDetail() {
   return (
     <div className="group-section">
       <Header group={group} />
-      <Navbar section={section} setSection={setSection} />
-      <Content section={section} group={group} />
+      <Navbar section={section} setSection={setSection} isOwner={isOwner} />
+      <Content section={section} group={group} isOwner={isOwner} />
     </div>
   );
 }
@@ -68,31 +73,37 @@ const Header = ({ group }) => (
   </div>
 );
 
-const Navbar = ({ section, setSection }) => (
-  <nav className="group-navbar">
-    <ul>
-      {Object.values(GROUP_OPTIONS).map((option) => (
-        <li key={option}>
-          <button
-            className={`navbar-button ${section === option ? "active" : ""}`}
-            onClick={() => setSection(option)}
-          >
-            {option}
-          </button>
-        </li>
-      ))}
-    </ul>
-  </nav>
-);
+const Navbar = ({ section, setSection, isOwner }) => {
+  const options = isOwner
+    ? Object.values(GROUP_OPTIONS)
+    : Object.values(GROUP_OPTIONS).filter((opt) => opt !== GROUP_OPTIONS.CONFIGURACION);
 
-const Content = ({ section, group }) => {
+  return (
+    <nav className="group-navbar">
+      <ul>
+        {options.map((option) => (
+          <li key={option}>
+            <button
+              className={`navbar-button ${section === option ? "active" : ""}`}
+              onClick={() => setSection(option)}
+            >
+              {option}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+const Content = ({ section, group, isOwner }) => {
   switch (section) {
     case GROUP_OPTIONS.INICIO:
       return <p>{group.group_description}</p>;
     case GROUP_OPTIONS.MIEMBROS:
-      return <p>Lista de miembros próximamente...</p>;
+      return <GroupMembers group={group} isOwner={isOwner}/>;
     case GROUP_OPTIONS.CONFIGURACION:
-      return <GroupConfig group={group} />;
+      return isOwner ? <GroupConfig group={group} /> : <p>No tienes acceso a esta sección.</p>;
     default:
       return <p>Sección no encontrada</p>;
   }

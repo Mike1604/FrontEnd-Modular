@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
-import { getGroup, getGroups } from "../../services/groupsSevice";
+import { getGroups } from "../../services/groupsSevice";
 
 export default function Groups() {
   const [groups, setGroups] = useState([]);
+  //Todo: remove this when JWT available
+  const userId = useSelector((state) => state.auth.userId);
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const data = await getGroups();
+        const data = await getGroups(userId);
         setGroups(data);
       } catch (error) {
         console.error("Error fetching groups:", error);
@@ -17,10 +20,9 @@ export default function Groups() {
     fetchGroups();
   }, []);
 
-  const handleNewGroup = async () => {
+  const handleNewGroup = async (groupData) => {
     try {
-      const updatedGroups = await getGroups();
-      setGroups(updatedGroups);
+      setGroups((prev) => [...prev, groupData]); 
     } catch (error) {
       console.error("Error updating groups:", error);
     }
@@ -46,5 +48,14 @@ export default function Groups() {
     );
   };
 
-  return <Outlet context={{ groups, handleNewGroup, handleGroupUpdate, handleGroupDeleted }} />;
+  return (
+    <Outlet
+      context={{
+        groups,
+        handleNewGroup,
+        handleGroupUpdate,
+        handleGroupDeleted,
+      }}
+    />
+  );
 }

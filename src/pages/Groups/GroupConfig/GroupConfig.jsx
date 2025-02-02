@@ -26,7 +26,6 @@ export default function GroupConfig({ group }) {
 
       const result = await deleteGroup(group.id);
 
-      console.log("Grupo eliminado:", result);
       alert("El grupo ha sido eliminado exitosamente.");
       handleGroupDeleted(group.id);
       navigate(`/groups/`);
@@ -41,7 +40,7 @@ export default function GroupConfig({ group }) {
   };
 
   return (
-    <section className="group-config-container">
+    <section className="group-section-container">
       <header className="group-info-header">
         <h2>Información del grupo</h2>
       </header>

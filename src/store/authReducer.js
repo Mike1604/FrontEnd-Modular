@@ -4,7 +4,7 @@ const initialState = {
   isAuthenticated: true,
   token: null,
   expiration: null,
-  userId: "678ddadd907b8024a57fbd46",
+  userId: "679e5bf6b8d3605f3a803797",
 };
 
 const authSlice = createSlice({
