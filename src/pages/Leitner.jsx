@@ -108,9 +108,9 @@ export default function Leitner() {
     <div className="top">
       <p>Inicio {">"} Leitner: Sistema de Aprendizaje Espaciado Automatizado</p>
       <div className="shortcuts">
-        <button className="create_package" onClick={() => navigate('/crear-baraja')}>Crear paquete</button>
-        <button className="create_new_auto_card" onClick={() => navigate('/crear-carta')}>Crear carta automaticamente</button>
-        <button className="create_new_auto_card">Crear carta manualmente</button>
+        <button className="button_a create_package" onClick={() => navigate('/crear-baraja')}>Crear paquete</button>
+        <button className="button_a white_text create_new_auto_card" onClick={() => navigate('/crear-carta')}>Crear carta automaticamente</button>
+        <button className="button_a white_text create_new_auto_card">Crear carta manualmente</button>
         <MoreVertIcon fontSize="large" />
       </div>
     </div>

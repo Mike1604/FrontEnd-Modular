@@ -29,7 +29,7 @@ export default function NewCard() {
           setImgUrl("./" + card.image)
           console.log(card)
           console.log(imgUrl)
-        }, 15000);
+        }, 10000);
   
         return () => clearTimeout(timer);
       }
