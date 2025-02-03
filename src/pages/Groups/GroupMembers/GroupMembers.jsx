@@ -42,10 +42,14 @@ export default function GroupMembers({ group, isOwner }) {
       const res = await removeMemberFromGroup(group.id, memberId);
 
       if (res) {
-        setMembers((members) => members.filter((member) => member.id !== memberId));
+        setMembers((members) =>
+          members.filter((member) => member.id !== memberId)
+        );
       }
     } catch (error) {
-      alert("Hubo un error al eliminar el miembro del grupo. Inténtalo de nuevo.");
+      alert(
+        "Hubo un error al eliminar el miembro del grupo. Inténtalo de nuevo."
+      );
       console.error("Error al eliminar el miembro del grupo:", error);
     }
   };
@@ -68,7 +72,11 @@ export default function GroupMembers({ group, isOwner }) {
         <div className="member-info">
           <Avatar
             alt={params.row.fullName}
-            src={params.row.profile_picture_path}
+            src={
+              params.row.profile_picture_path
+                ? `${params.row.profile_picture_path}?t=${Date.now()}`
+                : ""
+            }
             className="member-photo"
           >
             {params.row.fullName ? params.row.fullName[0] : null}

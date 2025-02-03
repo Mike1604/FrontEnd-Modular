@@ -46,7 +46,9 @@ export default function NavBar({ gridClass, onToggleSideBar }) {
           <div className={NavBarStyles["avatar-cont"]}>
             {userData ? (
               <>
-                <Avatar src={userData.profile_picture_path}>
+                <Avatar
+                  src={`${userData.profile_picture_path}?t=${Date.now()}`}
+                >
                   {`${userData.first_name?.[0]}${userData.last_name?.[0]}`}
                 </Avatar>
                 <h2>{`${userData.first_name} ${userData.last_name}`}</h2>
