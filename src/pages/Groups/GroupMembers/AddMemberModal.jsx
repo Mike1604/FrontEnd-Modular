@@ -5,6 +5,7 @@ import {
   ListItem,
   ListItemText,
   CircularProgress,
+  Input
 } from "@mui/material";
 
 import { searchEmails } from "../../../services/userService";
@@ -38,7 +39,7 @@ export default function AddMemberModal({
       }
     };
 
-    const timeout = setTimeout(fetchUsers, 300); // Evita múltiples llamadas innecesarias
+    const timeout = setTimeout(fetchUsers, 300); 
     return () => clearTimeout(timeout);
   }, [query]);
 
@@ -77,7 +78,7 @@ export default function AddMemberModal({
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h3>Agregar nuevo miembro</h3>
-        <input
+        <Input
           type="text"
           placeholder="Buscar por correo"
           value={query}

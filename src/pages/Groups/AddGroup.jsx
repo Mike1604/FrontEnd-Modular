@@ -45,7 +45,6 @@ export default function AddGroup() {
       const res = await createGroup(formData);
 
       if (res && res.groupdata) {
-        console.log("res", res.groupdata);
         
         handleNewGroup(res.groupdata);
         navigate(`/groups/${res.groupdata.id}`);
