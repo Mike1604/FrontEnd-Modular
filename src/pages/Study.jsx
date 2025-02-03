@@ -66,6 +66,7 @@ export default function Study() {
                 .then(data => {
                     setCards(data);
                     setCardsInitialLength(data.length);
+                    console.log(data)
                     setBarWidth(((100 / cardsInitialLength) * (data.length)).toString() + "%");
                 });
         }

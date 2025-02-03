@@ -72,8 +72,7 @@ p {
 }
 
 .card_preview_container {
-    display: flex;
-    gap: 25px ;
+    margin-top: 30px;
 }
 
 .card_preview {
@@ -275,3 +274,15 @@ p {
     justify-content: center;
 }
 
+
+.card_input {
+    border:1px solid #ffffff00;
+    transition: .2s all ease-in-out;
+
+}
+
+.card_input:focus {
+    outline: none;
+    border: 1px solid #0EA4A4;
+    transition: .2s all ease-in-out;
+}

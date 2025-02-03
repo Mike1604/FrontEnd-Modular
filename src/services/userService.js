@@ -13,7 +13,6 @@ export const getUserData = async (userId) => {
     }
 
     const result = await response.json();
-    console.log("User data fetched: ", result);
     return result;
   } catch (error) {
     console.error("Error while fetching user data", error);
