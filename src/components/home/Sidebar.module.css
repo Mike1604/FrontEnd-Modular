@@ -1,7 +1,7 @@
 .side-container {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  box-shadow: -0.5px 0 0 var(--secondary-color) inset;
+  border-right: 2px solid #2F2F2F;
   height: 100vh;
   gap: 1rem;
   transition: all 0.3s ease;

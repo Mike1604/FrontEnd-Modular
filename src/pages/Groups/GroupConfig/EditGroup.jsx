@@ -52,8 +52,6 @@ export default function EditGroup({ group }) {
 
     try {
       const res = await updateGroup(group.id, groupData);
-      console.log("Group updated: ", res);
-
       let resData = res.groupdata;
 
       if (resData.group_picture_path) {
@@ -74,7 +72,6 @@ export default function EditGroup({ group }) {
         group_picture_path: resData.group_picture_path,
         group_picture: null,
       });
-
     } catch (error) {
       alert("Hubo un error al actualizar el grupo. Inténtalo de nuevo.");
       console.error("Error al actualizar el grupo:", error);
@@ -165,20 +162,16 @@ export default function EditGroup({ group }) {
       </div>
 
       <div className="form-actions">
-        <Link
-          to={`/groups/${group.id}`}
+        <Button
           className={`${isEditable ? `active` : "inactive"}`}
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            setIsEditable((prev) => !prev);
+          }}
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={() => {
-              setIsEditable((prev) => !prev);
-            }}
-          >
-            Cancelar
-          </Button>
-        </Link>
+          Cancelar
+        </Button>
         <Button
           variant="outlined"
           color="primary"
