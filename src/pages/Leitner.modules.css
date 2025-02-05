@@ -170,6 +170,7 @@ p {
 /* LEITNER MAIN PAGE */
 .top {
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
     gap: 30px;
     font-size: 1.2em;
