@@ -60,7 +60,7 @@ export const updateGroup = async (id, data) => {
 
   if (!response.ok) throw new Error("Error al actualizar el grupo");
   console.log("Group updated ", response);
-  
+
   return response.json();
 };
 
@@ -170,6 +170,77 @@ export const removeMemberFromGroup = async (groupid, userId) => {
     return result;
   } catch (error) {
     console.error("Error while removing member from group", error);
+    throw error;
+  }
+};
+
+export const getGroupPosts = async (groupId) => {
+  try {
+    const URL = `http://localhost:8001/groups/${groupId}/posts`;
+    const response = await fetch(URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Group posts fetched: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while fetching group posts", error);
+    throw error;
+  }
+};
+
+export const addGroupPost = async (groupId, post) => {
+  try {
+    const URL = `http://localhost:8001/groups/${groupId}/posts`;
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Post added to group: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while adding post to group", error);
+    throw error;
+  }
+};
+
+export const removeGroupPost = async (groupId, postId) => {
+  try {
+    const URL = `http://localhost:8001/groups/${groupId}/posts/${postId}`;
+
+    const response = await fetch(URL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Post removed from group: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while removing post from group", error);
     throw error;
   }
 };
