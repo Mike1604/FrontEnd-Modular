@@ -18,6 +18,7 @@ export default function AddGroupPost({ onAddPost, isLoading }) {
 
   return (
     <form className="post-form" onSubmit={handleSubmit}>
+      <h2>Publica un anuncio</h2>
       <TextField
         label="Escribe algo..."
         placeholder="Escribe algo..."

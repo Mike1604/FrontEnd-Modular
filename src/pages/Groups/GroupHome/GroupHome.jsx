@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import CircularProgress from "@mui/material/CircularProgress";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import {
   removeGroupPost,
@@ -73,28 +73,28 @@ export default function GroupHome({ group }) {
     <section className="group-section-container">
       <div className="group-home-container">
         <AddGroupPost onAddPost={handleAddPost} isLoading={isLoading} />
-          <div className="posts-container">
-            {posts.length === 0 ? (
-              <p className="no-posts">Aún no hay anuncios</p>
-            ) : (
-              posts.map((post) => (
-                <div key={post.id} className="post-item">
-                  <p>{post.text_content}</p>
-                  {isGroupOwner && (
-                    <Button
-                      variant="outlined"
-                      startIcon={<DeleteIcon />}
-                      onClick={() => handleDeletePost(post.id)}
-                      color="error"
-                    >
-                      Delete
-                    </Button>
-                  )}
-                </div>
-              ))
-            )}
-          </div>
+        <div className="posts-container">
+          {posts.length === 0 ? (
+            <p className="no-posts">Aún no hay anuncios</p>
+          ) : (
+            posts.map((post) => (
+              <div key={post.id} className="post-item">
+                <p>{post.text_content}</p>
+                {isGroupOwner && (
+                  <Button
+                    variant="outlined"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => handleDeletePost(post.id)}
+                    color="error"
+                  >
+                    Delete
+                  </Button>
+                )}
+              </div>
+            ))
+          )}
         </div>
+      </div>
     </section>
   );
 }
