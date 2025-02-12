@@ -170,15 +170,21 @@ p {
 
 .decks {
     display: flex;
-    gap: 20px;
-    cursor: pointer;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .save_deck {
-
+    cursor: pointer;
     border: 2px solid white;
     border-radius: 5px;
     padding: 5px 10px;
+    transition: .2s all ease-in-out;
+}
+
+.save_deck:hover {
+    background-color: white;
+    color: #0EA4A4;
 }
 
 
