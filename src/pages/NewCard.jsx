@@ -9,8 +9,8 @@ import Typography from '@mui/material/Typography';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SaveIcon from '@mui/icons-material/Save';
-import { borderRadius } from "@mui/system";
 
+// Style for Modal
 const style = {
   position: 'absolute',
   top: '50%',
@@ -31,9 +31,9 @@ export default function NewCard() {
   const [card, setCard] = useState({})
   const [decks, setDecks] = useState([])
   const [saved, setSaved] = useState(false)
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   const generateCard = () => {
     // Validation for input
@@ -46,10 +46,12 @@ export default function NewCard() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        text: inputValue,
+        text: inputValue.trim(),
+        // Next fields should be acquired from user settings
         user_language: "Spanish",
         target_language: "English",
-        style: "default"
+        owner: "Randy",
+        style: "default" 
       })
     };
 
@@ -76,8 +78,7 @@ export default function NewCard() {
       body: JSON.stringify({
         deck_name: deck.name,
         deck_owner: deck.owner,
-        card_id: card_id,
-        "Access-Control-Allow-Origin": "*"
+        card_id: card_id
       })
     };
 
