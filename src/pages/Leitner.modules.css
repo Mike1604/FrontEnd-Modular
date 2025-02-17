@@ -1,0 +1,304 @@
+
+p {
+    margin: 0; padding: 0;
+}
+
+.button_a {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.white_text {
+    color: white;
+}
+
+.main_container {
+    margin-top: 10px;
+    padding: 10px 0 20px 25px;
+    display: flex;
+    flex-direction:column;
+    height: 100%;
+}
+
+.card_generator {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.card_generator > h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.card_generator > input {
+    background-color: #252525;
+    color: white;
+    border: none;
+    font-size: 1.25em;
+    box-shadow: none;
+    width: 420px;
+    padding: 15px 20px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.card_gen_button {
+    display: flex;
+    border: none;
+    color: white;
+    gap: 15px;
+    cursor: pointer;
+    background-color: #0EA4A4;
+    font-size: 1.1em;
+    border-radius: 5px;
+    padding: 8px 25px;
+}
+
+.save_button {
+    display: flex;
+    border: none;
+    color: white;
+    gap: 10px;
+    cursor: pointer;
+    background-color: #4fa044;
+    font-size: 1.1em;
+    border-radius: 5px;
+    padding: 5px 20px;
+}
+
+.card_preview_container {
+    margin-top: 30px;
+}
+
+.card_preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-top: 50px;
+    background-color: #252525;
+    width: 416px;
+    height: 655px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.card_preview_title {
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+.card_preview_original {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 1.5em;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.card_preview_img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.closest_translation {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: #E6E6E6;
+    color: black;
+    border-radius: 3px;
+    padding: 3px 15px;
+    min-width: 350px;
+    max-width: 350px;
+    text-align: center;
+}
+
+.description {
+    padding: 10px 50px;
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 20px;
+}
+
+.uses {
+    margin: 10px 0;
+}
+
+.example {
+    padding: 5px 40px;
+    display: flex;
+    font-style: italic;
+    text-align: justify;
+    text-justify: inter-word;
+    gap: 25px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button_container {
+    display: flex;
+}
+
+.save_zone {
+    font-size: 3em;
+    box-sizing: content-box;
+}
+
+.save_zone > svg {
+    background-color: #252525;
+    border-radius: 100%;
+    padding: 15px;
+    margin: 50px 30px 20px 50px;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+
+.discard:hover {
+    background-color: #E9314A;
+}
+
+.save:hover {
+    background-color: #04AB70;
+}
+
+.decks {
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.save_deck {
+
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+
+/* LEITNER MAIN PAGE */
+.top {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 30px;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.shortcuts {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.create_package {
+    background-color: #E8C609;
+    color: #252525;
+    font-weight: bold;
+}
+
+.create_new_auto_card {
+    background-color: #252525;
+}
+.shortcuts > button {
+    padding: 5px 20px ;
+    font-size: 0.9em;
+}
+
+
+.title > h2 {
+    font-size: 1.6em;
+    font-weight: bolder;
+    min-width: 440px;
+}
+
+.statistics {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 25px;
+    box-sizing: border-box;
+}
+
+.cardbox {
+    min-width: 320px;
+    border-radius: 5px;
+}
+
+.cardbox-fill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #252525;
+    height: 0%;
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: all .5s ease-in-out;
+}
+
+.number {
+    margin-top: 50px;
+    font-size: 10em;
+}
+
+.stat_text {
+    font-size: 1.5em;
+}
+
+.cardbox-big {
+    min-width: 900px;
+    background-color: #252525;
+    border-radius: 5px;
+    padding: 20px 0;
+}
+
+.decks_container {
+    display: flex;
+    gap: 25px;
+    padding: 20px;
+    padding-bottom: 50px;
+}
+
+.deck {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 575px;
+    background-color: #252525;
+    border-radius: 10px;
+}
+
+.deck > img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.deck_lower {
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px 0;
+    justify-content: center;
+}
+
+
+.card_input {
+    border:1px solid #ffffff00;
+    transition: .2s all ease-in-out;
+
+}
+
+.card_input:focus {
+    outline: none;
+    border: 1px solid #0EA4A4;
+    transition: .2s all ease-in-out;
+}

@@ -3,10 +3,12 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
 import HomeIcon from "@mui/icons-material/Home";
+import ExploreIcon from '@mui/icons-material/Explore';
 
 import sidebarStyles from "./Sidebar.module.css";
 import GlotoolsHeader from "../login/GloToolsHeader";
 import SideBarSection from "../UI/SideBarSection";
+
 import { logout } from "../../store/authReducer";
 
 export default function Sidebar({ gridClass, activeClass }) {
@@ -36,6 +38,17 @@ export default function Sidebar({ gridClass, activeClass }) {
             { title: "Grupos", route: "/groups" },
           ]}
         />
+        <SideBarSection
+          title="Leitner"
+          icon={ExploreIcon}
+          options={[
+            { title: "Inicio", route: "/leitner" },
+            { title: "Sesion rapida", route: "/study" },
+            { title: "Crear carta automaticamente", route: "/crear-carta" },
+            { title: "Crear nueva baraja", route: "/crear-baraja" },
+            { title: "Configurar", route: "/leitner" },
+          ]}
+          />
       </div>
       <div className={sidebarStyles.logout}>
         <Button variant="outlined" onClick={handleLogout}>

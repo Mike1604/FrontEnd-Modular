@@ -1,8 +1,8 @@
 .sidebar-section-cont {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column;
   background-color: var(--background-secondary);
-  padding: 5px;
+  padding: 8px 5px;
   border-radius: 8px;
   width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -12,10 +12,12 @@
 .sidebar-section-title {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   cursor: pointer;
+  padding: 5px 10px;
   transition: color 0.3s ease;
+  color: white;
+  font-weight: bold;
 }
 
 .sidebar-section-title:hover {
@@ -24,11 +26,11 @@
 
 .sidebar-section-title .MuiSvgIcon-root {
   transition: transform 0.3s ease-in-out;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .sidebar-section-title {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 
@@ -46,7 +48,7 @@
 }
 
 .sidebar-section-options.open {
-  max-height: 200px;
+  max-height: 500px; 
 }
 
 .sidebar-option {
