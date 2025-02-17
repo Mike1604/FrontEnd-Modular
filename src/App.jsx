@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { getTheme } from "./Util/MuiTheme";
 import router from "./router/router"
 import { setDarkMode } from "./store/themeReducer";
+import { initializeAuth } from "./store/authReducer";
 import "./App.css";
 
 
@@ -20,6 +21,7 @@ function App() {
     } else {
       dispatch(setDarkMode(true));
     }
+    dispatch(initializeAuth());
   }, [dispatch]);
   
 

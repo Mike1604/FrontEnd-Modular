@@ -1,19 +1,19 @@
 import { useState } from "react";
-import {
-  TextField,
-  IconButton,
-  Button,
-} from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router";
+
+import { TextField, IconButton, Button } from "@mui/material";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
-
-import { Link } from "react-router";
 
 import loginFormStyles from "../Auth/Login.module.css";
 import TextWithLinesContainer from "../../components/UI/TextWithLinesContainer";
 import AccountConfirmed from "../../components/login/AccountConfirmed";
 import PasswordField from "../../components/UI/PasswordField";
 import LanguageSelect from "../../components/UI/LanguageSelect";
+
+import { signUpRequest } from "../../services/authService";
+import { login } from "../../store/authReducer";
 
 const StepOne = ({ formData, handleChange }) => (
   <>
@@ -98,6 +98,7 @@ const StepTwo = ({ formData, handleChange }) => (
 );
 
 export default function SignUp() {
+  const dispatch = useDispatch();
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -136,20 +137,12 @@ export default function SignUp() {
     console.log("User received", dataToSend);
 
     try {
-      const response = await fetch("http://localhost:8001/users/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+      const result = await signUpRequest(dataToSend);
+      if (result.access_token) {
+        dispatch(login(result.access_token));
+      } else {
+        alert(result.error || "An unknown error has occurred");
       }
-
-      const result = await response.json();
-      console.log("Usuario registrado con éxito:", result);
       setConfirmationVisible(true);
     } catch (error) {
       console.error("Error al registrar usuario:", error);
@@ -163,7 +156,11 @@ export default function SignUp() {
         <AccountConfirmed />
       ) : (
         <>
-          <form onSubmit={handleSubmit} noValidate className={loginFormStyles["login-form"]}>
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className={loginFormStyles["login-form"]}
+          >
             {step === 1 && (
               <StepOne formData={formData} handleChange={handleChange} />
             )}
@@ -186,7 +183,7 @@ export default function SignUp() {
               </IconButton>
             </div>
           </form>
-          
+
           <TextWithLinesContainer text="ó" />
 
           <div className={loginFormStyles.submitContainer}>
