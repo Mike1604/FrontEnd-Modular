@@ -32,8 +32,19 @@ export default function NewCard() {
   const [decks, setDecks] = useState([])
   const [saved, setSaved] = useState(false)
   const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const handleOpen = () => {
+    // If we already fetched the decks, no need
+    if (!decks.length) {
+      // Fetch decks for saving
+      fetch('http://127.0.0.1:8000/decks')
+        .then(response => response.json())
+        .then(data => setDecks(data));
+    }
+    setOpen(true)
+
+  }
 
   const generateCard = () => {
     // Validation for input
@@ -51,7 +62,7 @@ export default function NewCard() {
         user_language: "Spanish",
         target_language: "English",
         owner: "Randy",
-        style: "default" 
+        style: "default"
       })
     };
 
@@ -61,24 +72,17 @@ export default function NewCard() {
 
     setVisibleCard(true)
     setVisibleGenerateButton(false)
-
-    // If we already fetched the decks, no need
-    if (!decks.length) {
-      // Fetch decks for saving
-      fetch('http://127.0.0.1:8000/decks')
-        .then(response => response.json())
-        .then(data => setDecks(data));
-    }
   }
 
-  const save_in_deck = (deck, card_id) => {
+  const save_in_deck = (deck) => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         deck_name: deck.name,
         deck_owner: deck.owner,
-        card_id: card_id
+        card: card,
+        id: card.id
       })
     };
 
@@ -142,7 +146,7 @@ export default function NewCard() {
             <div className="decks">
               {decks ? decks.map((deck, key) => (
                 <div onClick={() => {
-                  save_in_deck(deck, card.id)
+                  save_in_deck(deck)
                   handleClose()
                   clean()
                 }} className="save_deck" key={key}>{deck.name}</div>
