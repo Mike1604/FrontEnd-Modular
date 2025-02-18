@@ -8,7 +8,6 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { createGroup } from "../../services/groupsSevice";
 
 export default function AddGroup() {
-  const userId = useSelector((state) => state.auth.userId);
   const navigate = useNavigate();
   const { handleNewGroup } = useOutletContext()
 
@@ -18,7 +17,6 @@ export default function AddGroup() {
     group_name: "",
     group_description: "",
     group_picture: null,
-    owner: userId,
   });
 
   const [imagePreview, setImagePreview] = useState(null);

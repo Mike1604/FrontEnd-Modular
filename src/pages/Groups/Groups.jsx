@@ -9,14 +9,12 @@ import { getGroups } from "../../services/groupsSevice";
 export default function Groups() {
   const [groups, setGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  //Todo: remove this when JWT available
-  const userId = useSelector((state) => state.auth.userId);
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
         setIsLoading(true);
-        const data = await getGroups(userId);
+        const data = await getGroups();
         setGroups(data);
       } catch (error) {
         console.error("Error fetching groups:", error);
