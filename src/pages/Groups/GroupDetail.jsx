@@ -13,6 +13,8 @@ import GroupMembers from "./GroupMembers/GroupMembers";
 
 const GROUP_OPTIONS = {
   INICIO: "Inicio",
+  ACTIVIDADES: "Actividades",
+  ESTADISTICAS: "Estadisticas",
   MIEMBROS: "Miembros",
   CONFIGURACION: "Configuración",
 };

@@ -147,21 +147,21 @@ export default function Leitner() {
     </div>
     <section className="decks_container">
       <div className="deck" onClick={() => navigate('/study')}>
-        <img src="./455116372859644_00001_.png" alt="" />
+        <img src="./168569914001083_00001_.png" alt="" />
         <div className="deck_lower">
           <p>Frances</p>
           <SettingsIcon />
         </div>
       </div>
       <div className="deck">
-        <img src="./198498142358207_00001_.png" alt="" />
+        <img src="./342226431088886_00001_.png" alt="" />
         <div className="deck_lower">
           <p>Japones</p>
           <SettingsIcon />
         </div>
       </div>
       <div className="deck">
-        <img src="./473437978293388_00001_.png" alt="" />
+        <img src="./899836846884601_00001_.png" alt="" />
         <div className="deck_lower">
           <p>English</p>
           <SettingsIcon />

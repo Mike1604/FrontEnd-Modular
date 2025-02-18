@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
 
 const initialState = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   token: null,
   expiration: null,
-  userId: "67a00fe18a9c4f24bd0a7cf7",
+  userId: null,
+  isLoading: true,
 };
 
 const authSlice = createSlice({
@@ -12,28 +14,53 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      /* const token = action.payload;
-            const decoded = jwtDecode(token); // Decodificar el token para obtener `exp`
-            const expiration = decoded.exp * 1000; // Convertir de segundos a milisegundos
+      const token = action.payload;
+      const decoded = jwtDecode(token);
+      
+      const expiration = decoded.exp * 1000; 
 
-            state.token = token;
-            state.expiration = expiration; 
-            const userId = decodedToken.userId;
-            */
-      console.log("Payload: " + action.payload);
-      state.isAuthenticated = action.payload;
+      state.token = token;
+      state.expiration = expiration;
+      state.userId = decoded.sub;
+      state.isAuthenticated = true;
+      state.isLoading = false; 
 
-      /* localStorage.setItem("authToken", token); */
+      localStorage.setItem("authToken", token);
     },
     logout: (state) => {
       state.token = null;
       state.expiration = null;
       state.isAuthenticated = false;
       state.userId = null;
-      /* localStorage.removeItem("authToken"); */
+      state.isLoading = false;
+      localStorage.removeItem("authToken");
+    },
+    initializeAuth: (state) => {
+      const token = localStorage.getItem("authToken");
+
+      if (token) {
+        try {
+          const decoded = jwtDecode(token);
+          const expiration = decoded.exp * 1000;
+          const currentTime = Date.now();
+
+          if (expiration > currentTime) {
+            state.token = token;
+            state.expiration = expiration;
+            state.userId = decoded.sub;
+            state.isAuthenticated = true;
+          } else {
+            localStorage.removeItem("authToken"); 
+          }
+        } catch (error) {
+          console.error("Error decoding token:", error);
+          localStorage.removeItem("authToken");
+        }
+      }
+      state.isLoading = false; 
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, initializeAuth } = authSlice.actions;
 export default authSlice.reducer;

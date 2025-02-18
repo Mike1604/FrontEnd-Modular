@@ -1,75 +1,4 @@
 
-p {
-    margin: 0; padding: 0;
-}
-
-.button_a {
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.white_text {
-    color: white;
-}
-
-.main_container {
-    margin-top: 10px;
-    padding: 10px 0 20px 25px;
-    display: flex;
-    flex-direction:column;
-    height: 100%;
-}
-
-.card_generator {
-    display: flex;
-    margin-top: 50px;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-}
-
-.card_generator > h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.card_generator > input {
-    background-color: #252525;
-    color: white;
-    border: none;
-    font-size: 1.25em;
-    box-shadow: none;
-    width: 420px;
-    padding: 15px 20px;
-    text-align: center;
-    border-radius: 5px;
-    margin-bottom: 30px;
-}
-
-.card_gen_button {
-    display: flex;
-    border: none;
-    color: white;
-    gap: 15px;
-    cursor: pointer;
-    background-color: #0EA4A4;
-    font-size: 1.1em;
-    border-radius: 5px;
-    padding: 8px 25px;
-}
-
-.save_button {
-    display: flex;
-    border: none;
-    color: white;
-    gap: 10px;
-    cursor: pointer;
-    background-color: #4fa044;
-    font-size: 1.1em;
-    border-radius: 5px;
-    padding: 5px 20px;
-}
 
 .card_preview_container {
     margin-top: 30px;
@@ -146,27 +75,6 @@ p {
     display: flex;
 }
 
-.save_zone {
-    font-size: 3em;
-    box-sizing: content-box;
-}
-
-.save_zone > svg {
-    background-color: #252525;
-    border-radius: 100%;
-    padding: 15px;
-    margin: 50px 30px 20px 50px;
-    transition: all .2s ease-in-out;
-    cursor: pointer;
-}
-
-.discard:hover {
-    background-color: #E9314A;
-}
-
-.save:hover {
-    background-color: #04AB70;
-}
 
 .decks {
     display: flex;
@@ -185,7 +93,6 @@ p {
 /* LEITNER MAIN PAGE */
 .top {
     display: flex;
-    flex-flow: row wrap;
     align-items: center;
     gap: 30px;
     font-size: 1.2em;

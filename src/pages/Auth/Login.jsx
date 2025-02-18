@@ -1,42 +1,42 @@
 import { useState } from "react";
 import { TextField, IconButton, Button } from "@mui/material";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+
 import loginFormStyles from "../Auth/Login.module.css";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import TextWithLinesContainer from "../../components/UI/TextWithLinesContainer";
 import PasswordField from "../../components/UI/PasswordField";
 
+import { login } from "../../store/authReducer";
+import { loginRequest } from "../../services/authService";
+
 export default function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const dataToSend = {
-      email,
-      password,
-    };
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
+    }
+
+    const dataToSend = new FormData();
+    dataToSend.append("username", email);
+    dataToSend.append("password", password);
 
     console.log("User to send", dataToSend);
 
-    try {
-      const response = await fetch("http://localhost:8001/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log("Inicio de sesion correctamente:", result);
-    } catch (error) {
-      console.error("Error al iniciar sesion:", error);
+    const result = await loginRequest(dataToSend);
+    if (result.access_token) {
+      dispatch(login(result.access_token));
+      navigate("/");
+    } else {
+      alert(result.error || "An unknown error has occurred");
     }
   };
 
@@ -44,7 +44,11 @@ export default function Login() {
     <main>
       <TextWithLinesContainer text={"Iniciar sesión"}></TextWithLinesContainer>
 
-      <form onSubmit={handleSubmit} noValidate className={loginFormStyles["login-form"]}>
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className={loginFormStyles["login-form"]}
+      >
         <TextField
           variant="outlined"
           margin="normal"
@@ -58,7 +62,11 @@ export default function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <PasswordField label={"Contraseña"} value={password} onChange={(e) => setPassword(e.target.value)} />
+        <PasswordField
+          label={"Contraseña"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <div className={loginFormStyles.submitContainer}>
           <IconButton type="submit">
