@@ -1,10 +1,14 @@
-export const getGroups = async (userId) => {
+export const getGroups = async () => {
   try {
-    const URL = `http://localhost:8001/groups/${userId}`;
+    const URL = `http://localhost:8001/groups/`;
+
+    const token = localStorage.getItem("authToken");
+
     const response = await fetch(URL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
 
@@ -23,11 +27,14 @@ export const getGroups = async (userId) => {
 
 export const getGroup = async (groupId) => {
   try {
-    const URL = `http://localhost:8001/groups/group/${groupId}`;
+    const token = localStorage.getItem("authToken");
+
+    const URL = `http://localhost:8001/groups/${groupId}`;
     const response = await fetch(URL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
 
@@ -44,7 +51,7 @@ export const getGroup = async (groupId) => {
   }
 };
 
-export const updateGroup = async (id, data) => {
+export const updateGroup = async (groupID, data) => {
   const formData = new FormData();
   formData.append("group_name", data.group_name);
   formData.append("group_description", data.group_description);
@@ -53,9 +60,14 @@ export const updateGroup = async (id, data) => {
     formData.append("group_picture", data.group_picture);
   }
 
-  const response = await fetch(`http://localhost:8001/groups/${id}`, {
+  const token = localStorage.getItem("authToken");
+
+  const response = await fetch(`http://localhost:8001/groups/${groupID}`, {
     method: "PUT",
     body: formData,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    }
   });
 
   if (!response.ok) throw new Error("Error al actualizar el grupo");
@@ -69,7 +81,6 @@ export const createGroup = async (groupData) => {
     const formData = new FormData();
     formData.append("group_name", groupData.group_name);
     formData.append("group_description", groupData.group_description);
-    formData.append("owner", groupData.owner);
 
     if (groupData.group_picture) {
       formData.append("group_picture", groupData.group_picture);
@@ -77,11 +88,16 @@ export const createGroup = async (groupData) => {
 
     console.log("Form Data to send: ", formData);
 
+    const token = localStorage.getItem("authToken");
+
     const URL = `http://localhost:8001/groups/`;
 
     const response = await fetch(URL, {
       method: "POST",
       body: formData,
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+      },
     });
 
     if (!response.ok) {
@@ -101,11 +117,14 @@ export const createGroup = async (groupData) => {
 
 export const deleteGroup = async (groupId) => {
   try {
+    const token = localStorage.getItem("authToken");
+
     const URL = `http://localhost:8001/groups/${groupId}`;
 
     const response = await fetch(URL, {
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
       method: "DELETE",
     });
@@ -128,11 +147,14 @@ export const deleteGroup = async (groupId) => {
 
 export const addMemberToGroup = async (groupid, userId) => {
   try {
+    const token = localStorage.getItem("authToken");
+
     const URL = `http://localhost:8001/groups/${groupid}/members`;
     const response = await fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
       body: JSON.stringify({ user_id: userId }),
     });
@@ -152,11 +174,14 @@ export const addMemberToGroup = async (groupid, userId) => {
 
 export const removeMemberFromGroup = async (groupid, userId) => {
   try {
+    const token = localStorage.getItem("authToken");
+
     const URL = `http://localhost:8001/groups/${groupid}/members`;
     const response = await fetch(URL, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
       body: JSON.stringify({ user_id: userId }),
     });
@@ -176,11 +201,14 @@ export const removeMemberFromGroup = async (groupid, userId) => {
 
 export const getGroupPosts = async (groupId) => {
   try {
+    const token = localStorage.getItem("authToken");
+
     const URL = `http://localhost:8001/groups/${groupId}/posts`;
     const response = await fetch(URL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
 
@@ -199,11 +227,14 @@ export const getGroupPosts = async (groupId) => {
 
 export const addGroupPost = async (groupId, post) => {
   try {
+    const token = localStorage.getItem("authToken");
+
     const URL = `http://localhost:8001/groups/${groupId}/posts`;
     const response = await fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
       body: JSON.stringify(post),
     });
