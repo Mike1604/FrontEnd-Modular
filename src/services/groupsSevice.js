@@ -254,12 +254,15 @@ export const addGroupPost = async (groupId, post) => {
 
 export const removeGroupPost = async (groupId, postId) => {
   try {
+    const token = localStorage.getItem("authToken");
+
     const URL = `http://localhost:8001/groups/${groupId}/posts/${postId}`;
 
     const response = await fetch(URL, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
 
