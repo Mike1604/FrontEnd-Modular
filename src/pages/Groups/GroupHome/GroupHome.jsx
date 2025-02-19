@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 import CircularProgress from "@mui/material/CircularProgress";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import {
   removeGroupPost,
@@ -10,10 +8,10 @@ import {
   addGroupPost,
 } from "../../../services/groupsSevice";
 import AddGroupPost from "./AddGroupPost";
-import "./GroupHome.css";
-import { Button } from "@mui/material";
+import PostItem from "./PostItem"; // Importamos el nuevo componente
 
-//Todo: add delete button when auth for post owner
+import "./GroupHome.css";
+
 export default function GroupHome({ group }) {
   const userId = useSelector((state) => state.auth.userId);
   const [posts, setPosts] = useState([]);
@@ -23,6 +21,7 @@ export default function GroupHome({ group }) {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const res = await getGroupPosts(group.id);
         setPosts(res);
@@ -40,13 +39,11 @@ export default function GroupHome({ group }) {
   const handleAddPost = async (newPostText) => {
     try {
       setIsLoading(true);
-      const postData = {
-        text_content: newPostText,
-      };
+      const postData = { text_content: newPostText };
 
       const res = await addGroupPost(group.id, postData);
 
-      setPosts([...posts, { id: res.post_id, text_content: newPostText }]);
+      setPosts([...posts, res.post]);
     } catch (e) {
       alert("An error occurred while adding the post");
       console.error(e);
@@ -58,8 +55,7 @@ export default function GroupHome({ group }) {
   const handleDeletePost = async (postId) => {
     try {
       setIsLoading(true);
-      const res = await removeGroupPost(group.id, postId);
-
+      await removeGroupPost(group.id, postId);
       setPosts(posts.filter((post) => post.id !== postId));
     } catch (e) {
       alert("An error occurred while deleting the post");
@@ -73,24 +69,20 @@ export default function GroupHome({ group }) {
     <section className="group-section-container">
       <div className="group-home-container">
         <AddGroupPost onAddPost={handleAddPost} isLoading={isLoading} />
-        <div className="posts-container">
-          {posts.length === 0 ? (
+        <div className={`posts-container ${isLoading}`}>
+          {isLoading ? (
+            <CircularProgress />
+          ) : posts.length === 0 ? (
             <p className="no-posts">Aún no hay anuncios</p>
           ) : (
             posts.map((post) => (
-              <div key={post.id} className="post-item">
-                <p>{post.text_content}</p>
-                {isGroupOwner && (
-                  <Button
-                    variant="outlined"
-                    startIcon={<DeleteIcon />}
-                    onClick={() => handleDeletePost(post.id)}
-                    color="error"
-                  >
-                    Delete
-                  </Button>
-                )}
-              </div>
+              <PostItem
+                key={post.id}
+                post={post}
+                userId={userId}
+                isGroupOwner={isGroupOwner}
+                onDelete={handleDeletePost}
+              />
             ))
           )}
         </div>
