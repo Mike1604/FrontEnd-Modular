@@ -17,8 +17,6 @@ export default function GroupHome({ group }) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isGroupOwner = userId === group.owner;
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -80,7 +78,7 @@ export default function GroupHome({ group }) {
                 key={post.id}
                 post={post}
                 userId={userId}
-                isGroupOwner={isGroupOwner}
+                groupOwner={group.owner}
                 onDelete={handleDeletePost}
               />
             ))

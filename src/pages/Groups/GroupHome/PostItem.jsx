@@ -1,8 +1,8 @@
 import { Button, Avatar } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function PostItem({ post, userId, isGroupOwner, onDelete }) {
-  const canDelete = post.post_owner.id === userId || isGroupOwner;
+export default function PostItem({ post, userId, groupOwner, onDelete }) {
+  const canDelete = post.post_owner.id === userId || userId === groupOwner;
 
   return (
     <div className="post-item">
@@ -12,7 +12,8 @@ export default function PostItem({ post, userId, isGroupOwner, onDelete }) {
         </Avatar>
         <div className="post-info">
           <span className="post-owner-name">
-            {post.post_owner.first_name} {post.post_owner.last_name}
+            {post.post_owner.first_name} {post.post_owner.last_name}{" "}
+            {post.post_owner.id === groupOwner && " (Admin)"}
           </span>
           <span className="post-date">
             {new Date(post.created_at).toLocaleString()}
