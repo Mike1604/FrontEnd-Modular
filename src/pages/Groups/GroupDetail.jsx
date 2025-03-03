@@ -10,6 +10,7 @@ import "./GroupDetail.css";
 import GroupHome from "./GroupHome/GroupHome";
 import GroupConfig from "./GroupConfig/GroupConfig";
 import GroupMembers from "./GroupMembers/GroupMembers";
+import GroupStats from "./GroupStats/GroupStats";
 
 const GROUP_OPTIONS = {
   INICIO: "Inicio",
@@ -117,6 +118,8 @@ const Content = ({ section, group, isOwner }) => {
       ) : (
         <p>No tienes acceso a esta sección.</p>
       );
+    case GROUP_OPTIONS.ESTADISTICAS:
+      return <GroupStats/>
     default:
       return <p>Sección no encontrada</p>;
   }
