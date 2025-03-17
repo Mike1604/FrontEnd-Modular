@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { Outlet } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import "./NewDeck.modules.css";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
 export default function NewDeck() {
+    const navigate = useNavigate();
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     
@@ -29,6 +28,8 @@ export default function NewDeck() {
 
 
         fetch('http://127.0.0.1:8000/create-deck', requestOptions)
+        navigate('/crear-carta')
+
     }
 
 

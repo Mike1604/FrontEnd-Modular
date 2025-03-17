@@ -6,8 +6,10 @@ import ReactCardFlip from "react-card-flip";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useLocation } from "react-router";
 
 export default function Study() {
+    const location = useLocation();
     const [isFlipped, setIsFlipped] = useState(true)
     const [cards, setCards] = useState([])
     const [cardsInitialLength, setCardsInitialLength] = useState(0)
@@ -25,7 +27,70 @@ export default function Study() {
         setIsFlipped(!isFlipped)
     }
 
+
+
     const thumbsUp = () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                owner: cards[0].owner,
+                id: cards[0].id,
+                review: cards[0].review,
+                retained: cards[0].retained
+            }
+            )
+        };
+
+        fetch('http://127.0.0.1:8000/good', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            });
+
+        setIsFlipped(true) // sets cards to normal unrevealed position
+        if (isFlipped) {
+            if (cards.length) {
+                setCards(cards.slice(1));
+            } else {
+                setCompleted(true);
+            }
+
+            let number = Math.round((100 / cardsInitialLength) * (cards.length - 1))
+            setBarWidth(number.toString() + "%");
+        } else {
+            setTimeout(() => {
+                if (cards.length) {
+                    setCards(cards.slice(1));
+                } else {
+                    setCompleted(true);
+                }
+
+                let number = Math.round((100 / cardsInitialLength) * (cards.length - 1))
+                setBarWidth(number.toString() + "%");
+            }, 450);
+        }
+    }
+
+    const thumbsDown = () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                owner: cards[0].owner,
+                id: cards[0].id,
+                review: cards[0].review,
+                retained: cards[0].retained
+            }
+            )
+        };
+
+        fetch('http://127.0.0.1:8000/bad', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            });
+
         setIsFlipped(true) // sets cards to normal unrevealed position
         if (isFlipped) {
             if (cards.length) {
@@ -56,8 +121,8 @@ export default function Study() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    deck_name: "Japones",
-                    deck_owner: "Randy"
+                    deck_name: location.state.name,
+                    deck_owner: location.state.owner
                 })
             };
 
@@ -80,7 +145,7 @@ export default function Study() {
                 <div className="progress" style={{ width: barWidth }}></div>
             </div>
             {!cards.length ? <h className="topic">Listo, no tienes más cartas pendientes por hoy!</h> :
-                <h className="topic">Estudiando "Ingles para tontos"</h>
+                <h className="topic">Estudiando {location.state.name}</h>
             }
             {cards.length ?
                 <section className="study-section">
@@ -114,7 +179,7 @@ export default function Study() {
                         </ReactCardFlip>
                     </div>
                     <div className="rate">
-                        <div className="circle">
+                        <div className="circle" onClick={thumbsDown}>
                             <ThumbDownIcon fontSize="inherit" color="inherit" className="red" />
                         </div>
                         <div className="circle" onClick={thumbsUp}>

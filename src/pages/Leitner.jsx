@@ -5,13 +5,14 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { dataset } from './dataset'
+import Deck from "../components/UI/Deck";
 
 export default function Leitner() {
   const navigate = useNavigate();
   const [fillPercentageTotal, setFillPercentageTotal] = useState("0%")
   const [fillForgotten, setFillForgotten] = useState("0%")
   const [fillMemorized, setFillMemorized] = useState("0%")
-
+  const [decks, setDecks] = useState([])
 
 
   // TODO: Fetch total cards in need of review, today
@@ -50,10 +51,19 @@ export default function Leitner() {
 
     setFillMemorized(number.toString() + "%")
   }
+  
+  const fetch_decks = () => {
+    fetch('http://127.0.0.1:8000/decks')
+        .then(response => response.json())
+        .then(data => setDecks(data));
+
+    // Fetch deck preview image
+  }
 
   useEffect(() => {
     fill_bars()
     console.log(fillPercentageTotal)
+    fetch_decks()
   }, [])
 
   const ChartsOverviewDemo = () => {
@@ -145,28 +155,12 @@ export default function Leitner() {
       <h2>Administra tus paquetes de cartas</h2>
       <div className="line"></div>
     </div>
+
+
     <section className="decks_container">
-      <div className="deck" onClick={() => navigate('/study')}>
-        <img src="./168569914001083_00001_.png" alt="" />
-        <div className="deck_lower">
-          <p>Frances</p>
-          <SettingsIcon />
-        </div>
-      </div>
-      <div className="deck">
-        <img src="./342226431088886_00001_.png" alt="" />
-        <div className="deck_lower">
-          <p>Japones</p>
-          <SettingsIcon />
-        </div>
-      </div>
-      <div className="deck">
-        <img src="./899836846884601_00001_.png" alt="" />
-        <div className="deck_lower">
-          <p>English</p>
-          <SettingsIcon />
-        </div>
-      </div>
+      {decks ? decks.map((deck, key) => (
+        <Deck name={deck.name} image={deck.image} owner={"Randy"} key={key} />
+      )) : null}
     </section>
   </div>
 }
