@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 import { useSelector } from "react-redux";
 import { LineChart } from "@mui/x-charts";
+import { ViewCarousel, SchoolSharp } from "@mui/icons-material";
 
 import "./Home.css";
 import { getUserData } from "../../services/userService";
@@ -48,8 +50,8 @@ export default function Home() {
 
   return (
     <div className="home-cont">
+      <h2 className="welcome-text">{`Hola, ${userName}`}</h2>
       <div className="my-data-home">
-        <h2>{`Hola, ${userName}`}</h2>
         <div className="chart-container">
           <LineChart
             height={300}
@@ -66,13 +68,34 @@ export default function Home() {
         </div>
       </div>
 
-      <div>Yo</div>
-      <div>Yo</div>
-      <div className="groups-home">
-        {groups.map((group, index) => (
-          <GroupItem key={index} group={group} />
-        ))}
+      <div className="home-sect-container">
+        <section className="home-sect">
+          <Link to={"/study"}>
+            <div className="home-box-sect">
+              <SchoolSharp className="box-icon" />
+            </div>
+            <h2>Sesion de estudio</h2>
+          </Link>
+        </section>
+
+        <section className="home-sect">
+          <Link to={"/leitner"}>
+            <div className="home-box-sect">
+              <ViewCarousel className="box-icon" />
+            </div>
+            <h2>Leitner</h2>
+          </Link>
+        </section>
       </div>
+
+      <section className="footer-section">
+        <h1>Tus grupos</h1>
+        <div className="groups-home">
+          {groups.map((group, index) => (
+            <GroupItem key={index} group={group} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
