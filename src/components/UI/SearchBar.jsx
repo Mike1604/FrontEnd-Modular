@@ -11,7 +11,7 @@ const searchOptions = [
   { label: "Grupos", path: "/groups" },
   { label: "Leitner", path: "/leitner" },
   { label: "Crear Carta", path: "/crear-carta" },
-  { label: "Crear Beraja", path: "/crear-baraja" },
+  { label: "Crear Baraja", path: "/crear-baraja" },
 ];
 
 export default function SearchBar({ className }) {
@@ -73,8 +73,6 @@ export default function SearchBar({ className }) {
           </List>
         </div>
       )}
-
-      <SearchIcon className={`search-responsive`} />
     </div>
   );
 }
