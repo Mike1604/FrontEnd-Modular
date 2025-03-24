@@ -78,7 +78,7 @@ export default function DeckView() {
       </p>
     </div>
     <div className="title">
-      <h1>{location.state.name} ({cards ? cards.length : "?"} cartas)</h1>
+      <h1 style={{ width: '500px' }}>{location.state.name} ({cards ? cards.length : "?"} cartas)</h1>
       <div className="line" style={{ marginLeft: '20px' }}></div>
     </div>
     <div className="first_division">
