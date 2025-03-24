@@ -43,7 +43,6 @@ export default function Sidebar({ gridClass, activeClass }) {
           icon={ExploreIcon}
           options={[
             { title: "Inicio", route: "/leitner" },
-            { title: "Sesion rapida", route: "/study" },
             { title: "Crear carta automaticamente", route: "/crear-carta" },
             { title: "Crear nueva baraja", route: "/crear-baraja" },
             { title: "Configurar", route: "/leitner" },

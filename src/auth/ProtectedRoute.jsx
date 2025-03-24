@@ -9,9 +9,7 @@ export default function ProtectedRoute({ children }) {
 
   const checkTokenExpiration = () => {
     if (token && expiration) {
-      const currentTime = Date.now();
-      console.log(expiration-currentTime);
-      
+      const currentTime = Date.now();      
       return expiration > currentTime;
     }
     return false;

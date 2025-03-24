@@ -170,15 +170,21 @@ p {
 
 .decks {
     display: flex;
-    gap: 20px;
-    cursor: pointer;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .save_deck {
-
+    cursor: pointer;
     border: 2px solid white;
     border-radius: 5px;
     padding: 5px 10px;
+    transition: .2s all ease-in-out;
+}
+
+.save_deck:hover {
+    background-color: white;
+    color: #0EA4A4;
 }
 
 
@@ -282,13 +288,24 @@ p {
 }
 
 .deck_lower {
-    font-size: 1.2em;
     display: flex;
+    font-size: 1.1em;
     flex-direction: row;
-    gap: 20px;
-    padding: 20px 0;
+    align-items: center; /* Vertically center the items */
     justify-content: center;
+    position: relative; /* Needed for absolute positioning of the icon */
+    width: 100%; /* Ensure the container takes full width */
 }
+
+.deck_lower > p {
+    flex-grow: 1; /* Allow the text to take up remaining space */
+    text-align: center; /* Center the text within its container */
+}
+
+.deck_lower_icon {
+    position: absolute; /* Position the icon absolutely */
+    right: 20px; /* Align the icon to the very right */
+} 
 
 
 .card_input {
