@@ -24,13 +24,13 @@
 .search-responsive.MuiSvgIcon-root,
 .hamburger-menu-icon.MuiSvgIcon-root {
   display: none;
-  transition: transform 0.3s ease; 
+  transition: transform 0.3s ease;
 }
 
 .search-responsive.MuiSvgIcon-root:hover,
 .hamburger-menu-icon.MuiSvgIcon-root:hover {
   cursor: pointer;
-  transform: rotate(360deg); 
+  transform: rotate(360deg);
 }
 
 .title-half-line {
@@ -65,10 +65,10 @@
   margin-left: 10px;
 }
 
-@media(max-width: 800px) {
-  .search-input.MuiFormControl-root{
+@media (max-width: 800px) {
+  .search-input.MuiFormControl-root {
     display: none;
-  } 
+  }
 
   .search-responsive.MuiSvgIcon-root {
     display: block;
@@ -83,6 +83,28 @@
     justify-content: center;
   }
   .title-half-line::after {
-    content: none;  /* Elimina el contenido de ::after */
+    content: none; 
   }
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--background-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.search-dropdown .MuiListItemButton-root:hover {
+  background-color: var(--background-secondary);
 }

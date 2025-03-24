@@ -8,6 +8,7 @@ import { getGroup } from "../../services/groupsSevice";
 import "./GroupDetail.css";
 
 import GroupHome from "./GroupHome/GroupHome";
+import GroupActivities from "./GroupActivities/GroupActivities";
 import GroupConfig from "./GroupConfig/GroupConfig";
 import GroupMembers from "./GroupMembers/GroupMembers";
 import GroupStats from "./GroupStats/GroupStats";
@@ -112,6 +113,8 @@ const Content = ({ section, group, isOwner }) => {
       return <GroupHome group={group} />;
     case GROUP_OPTIONS.MIEMBROS:
       return <GroupMembers group={group} isOwner={isOwner} />;
+    case GROUP_OPTIONS.ACTIVIDADES:
+      return <GroupActivities group={group} isOwner={isOwner}/>
     case GROUP_OPTIONS.CONFIGURACION:
       return isOwner ? (
         <GroupConfig group={group} />

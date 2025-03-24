@@ -1,0 +1,184 @@
+.group-activities {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--background-secondary);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.group-act-container {
+  margin-top: 10px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  flex-grow: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 1rem;
+}
+
+.group-act-container p {
+  text-align: center;
+  color: #666;
+}
+
+.create-activity {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.group-activities-cont {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.act-item-cont {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  max-height: 300px;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  transition: all ease-in-out 0.2s;
+}
+
+.act-item-cont:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 10px var(--primary-color);
+}
+
+.MuiSvgIcon-root.act-icon {
+  font-size: 4rem;
+  margin: 0.5rem;
+}
+
+.act-content {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.2rem;
+  flex-grow: 1;
+  max-height: 250px;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.act-content p {
+  text-align: start;
+}
+
+.act-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+p.act-item-descr {
+  color: var(--secondary-color);
+  overflow: auto;
+  text-overflow: ellipsis;
+  max-height: 70px;
+}
+
+.act-item-bt {
+  color: var(--primary-color);
+  transition: transform 0.2s;
+}
+
+.act-item-bt:hover {
+  transform: scale(1.1);
+}
+
+.add-act-content {
+  padding: 30px;
+  border-radius: 8px;
+  width: 55%;
+  background-color: var(--background-color);
+  border: var(--primary-color) 1px solid;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.add-act-content button {
+  margin-top: 10px;
+  align-self: flex-end;
+}
+
+.add-act-content .main-title {
+  text-decoration: underline;
+  text-decoration-color: var(--primary-color);
+  text-underline-offset: 0.5rem;
+}
+.combo-box-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.act-decks-cont {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 1rem;
+  padding: 0.5rem;
+  max-height: 250px;
+  width: 100%;
+  overflow: auto;
+}
+
+.act-deck-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.act-deck-card {
+  width: 6rem;
+  height: 7.5rem;
+  background-color: var(--background-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+}
+
+.act-deck-card:hover {
+  box-shadow: 0 0 0 8px var(--primary-color);
+}
+
+.act-deck-card svg {
+  color: var(--secondary-color);
+  font-size: 3rem;
+}
+
+.act-deck-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.active-deck {
+  box-shadow: 0 0 0 5px var(--primary-color);
+}
+
+@media (max-width: 800px) {
+  .MuiSvgIcon-root.act-icon {
+    display: none;
+  }
+
+  .group-activities-cont {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.2rem;
+    align-items: start;
+  }
+  
+}
