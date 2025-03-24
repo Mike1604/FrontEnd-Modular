@@ -6,55 +6,17 @@ import ActivityItem from "./ActivityItem";
 import AddActivityModal from "./AddActivityModal";
 import EditActivityModal from "./EditActivityModal";
 import "./GroupActivities.css";
+import { useNavigate } from "react-router";
 
-const dummyData = [
-  {
-    title: "Verb Vocabulary",
-    description: "Group activity to learn the most common verbs in English.",
-    type: "Leitner Clasico",
-    evaluation: "Leitner",
-    deck: "Verbs in English",
-  },
-  {
-    title: "Adjective Vocabulary",
-    description: "Test on descriptive adjectives in English.",
-    type: "Examen",
-    evaluation: "Basada en texto",
-    deck: "Adjectives in English",
-  },
-  {
-    title: "Noun Vocabulary",
-    description: "Review activity on countable and uncountable nouns.",
-    type: "Leitner Clasico",
-    evaluation: "Leitner",
-    deck: "Nouns in English",
-  },
-  {
-    title: "Common Phrases Vocabulary",
-    description: "Test on common phrases for daily conversation.",
-    type: "Examen",
-    evaluation: "Leitner",
-    deck: "Common Phrases in English",
-  },
-  {
-    title: "Pronoun Vocabulary",
-    description: "Review of personal and possessive pronouns in English.",
-    type: "Leitner Clasico",
-    evaluation: "Basada en texto",
-    deck: "Pronouns in English",
-  },
-];
+
 
 export default function GroupActivities({ group, isOwner }) {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [activities, setActivities] = useState([]);
+  const navigate = useNavigate();
 
-  //Update this when activities available in backend
-  useEffect(() => {
-    setActivities(dummyData);
-  }, []);
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
   const handleEditModalOpen = (activity) => {
@@ -68,6 +30,10 @@ export default function GroupActivities({ group, isOwner }) {
     
     setActivities((prev) => [...prev, activity]);
   };
+
+  const startActivity = (activity) => {
+    navigate('/study', {state: {name: activity.deck, owner: activity.owner}})
+  }
 
   return (
     <section className="group-section-container">
@@ -97,8 +63,9 @@ export default function GroupActivities({ group, isOwner }) {
                 description={activity.description}
                 type={activity.type}
                 isOwner={isOwner}
+                activityClick={() => startActivity(activity)}
                 onEdit={() => handleEditModalOpen(activity)}
-              />
+                />
             ))}
           </ul>
         )}

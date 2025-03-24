@@ -9,6 +9,12 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Search, Save, Add } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+
+
+import {
+  getUserData,
+} from "../../../services/userService";
 
 const activityTypes = ["Leitner Clasico", "Examen"];
 const evaluationTypes = ["Leitner", "Basada en texto"];
@@ -47,6 +53,40 @@ const dummyDecks = [
 ];
 
 export default function AddActivityModal({ handleClose, handleSave }) {
+  const userId = useSelector((state) => state.auth.userId);
+  const [decks, setDecks] = useState([])
+  const [userData, setUserData] = useState(null)
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        if (userId) {
+          setUserData(await getUserData(userId));
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [userId]);
+
+  useEffect(() => {
+    if (userData) {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          owner: userData.id
+        }
+        )
+      };
+      fetch('http://127.0.0.1:8000/decks', requestOptions)
+        .then(response => response.json())
+        .then(data => setDecks(data));
+    }
+  }, [userData])
+
   const [activityData, setActivityData] = useState({
     title: "",
     description: "",
@@ -70,12 +110,13 @@ export default function AddActivityModal({ handleClose, handleSave }) {
     setActivityData((prevData) => ({
       ...prevData,
       ["deck"]: deckName,
+      ["owner"]: userData.id
     }));
   };
 
   useEffect(() => {
     const searchQuery = activityData.deckSearch.toLowerCase();
-    const filtered = dummyDecks.filter((deck) =>
+    const filtered = decks.filter((deck) =>
       deck.name.toLowerCase().includes(searchQuery)
     );
     setFilteredDecks(filtered);
@@ -185,20 +226,33 @@ export default function AddActivityModal({ handleClose, handleSave }) {
           </div>
 
           {filteredDecks.length === 0 ? (
-            <p>No decks found</p>
-          ) : (
-            filteredDecks.map((deck) => (
+            decks ? decks.map((deck, key) => (
               <div
-                key={deck.id}
+                key={key}
                 className="act-deck-container"
                 onClick={() => onSelectDeck(deck.name)}
               >
                 <div
-                  className={`${
-                    activityData.deck == deck.name ? "active-deck" : ""
-                  } act-deck-card`}
+                  className={`${activityData.deck == deck.name ? "active-deck" : ""
+                    } act-deck-card`}
                 >
-                  <img src={deck.image} alt={deck.name} />
+                  <img src={"../" + deck.image} alt={deck.name} />
+                </div>
+                <h2>{deck.name}</h2>
+              </div>
+            )) : "Buscando mazos..."
+          ) : (
+            filteredDecks.map((deck, key) => (
+              <div
+                key={key}
+                className="act-deck-container"
+                onClick={() => onSelectDeck(deck.name)}
+              >
+                <div
+                  className={`${activityData.deck == deck.name ? "active-deck" : ""
+                    } act-deck-card`}
+                >
+                  <img src={"../" + deck.image} alt={deck.name} />
                 </div>
                 <h2>{deck.name}</h2>
               </div>
