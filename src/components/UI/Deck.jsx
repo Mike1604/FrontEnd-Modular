@@ -5,16 +5,19 @@ const Deck = ({ name, image, owner }) => {
     const navigate = useNavigate();
 
     const redirect = () => {
-        console.log("redirecting to...")
         navigate('/study', {state: {name: name, owner: owner }})
     }
 
+    const configure = () => {
+        navigate('/view-deck', {state: {name: name, owner: owner }})
+    }
+
     return (
-        <div className="deck" onClick={redirect}>
-            <img src={"./" + image}/>
+        <div className="deck">
+            <img src={"./" + image} onClick={redirect}/>
             <div className="deck_lower">
-                <p>{name}</p>
-                <SettingsIcon />
+                <p onClick={redirect}>{name}</p>
+                <SettingsIcon onClick={configure} className="deck_lower_icon"/>
             </div>
         </div>
     );

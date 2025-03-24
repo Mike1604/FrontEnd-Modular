@@ -2,12 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import "./Study.modules.css";
+import { useSelector } from "react-redux";
 import ReactCardFlip from "react-card-flip";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useLocation } from "react-router";
-
+import {
+    getUserData,
+  } from "../services/userService";
 export default function Study() {
     const location = useLocation();
     const [isFlipped, setIsFlipped] = useState(true)
@@ -16,6 +19,25 @@ export default function Study() {
     const [barWidth, setBarWidth] = useState("100%")
     const audioRefs = useRef([]); // Array to hold refs for each audio element
     const [completed, setCompleted] = useState(false)
+    const [userData, setUserData] = useState(null)
+    const userId = useSelector((state) => state.auth.userId);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+          try {
+            if (userId) {
+              setUserData(await getUserData(userId))
+            } else {
+              console.error("No userID")
+            }
+          } catch (error) {
+            console.error("Error loading user data:", error);
+          }
+        }
+    
+        fetchUserData()
+      }, [])
+    
 
     const playAudio = (index) => {
         if (audioRefs.current[index]) {
@@ -90,6 +112,8 @@ export default function Study() {
             .then(data => {
                 console.log(data)
             });
+
+        fetch('http://127.0.0.1:8000/failed_inc/' + userData.id) // TODO
 
         setIsFlipped(true) // sets cards to normal unrevealed position
         if (isFlipped) {

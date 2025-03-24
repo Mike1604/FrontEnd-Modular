@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import "./Leitner.modules.css";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -7,13 +8,41 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import { dataset } from './dataset'
 import Deck from "../components/UI/Deck";
 
+import {
+  getUserData,
+} from "../services/userService";
+
 export default function Leitner() {
   const navigate = useNavigate();
   const [fillPercentageTotal, setFillPercentageTotal] = useState("0%")
   const [fillForgotten, setFillForgotten] = useState("0%")
   const [fillMemorized, setFillMemorized] = useState("0%")
-  const [decks, setDecks] = useState([])
+  const [pendingToday, setPendingToday] = useState(null)
+  const [failed, setFailed] = useState(0)
+  const [memorized, setMemorized] = useState(0)
 
+  const [decks, setDecks] = useState([])
+  const userId = useSelector((state) => state.auth.userId);
+  const [userData, setUserData] = useState(null)
+
+
+  const fetchPendingToday = () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: userData.id
+      }
+      )
+    };
+    fetch('http://127.0.0.1:8000/pendingToday', requestOptions)
+      .then(response => 
+        response.json()
+      )
+      .then(data => {
+        setPendingToday(data)
+      });
+  }
 
   // TODO: Fetch total cards in need of review, today
   const calculateTotalCards = () => {
@@ -27,44 +56,87 @@ export default function Leitner() {
     return Math.floor(Math.random() * 19) + 1
   }
 
+  const get_failed_weekly = () => {
+    fetch('http://127.0.0.1:8000/failed/' + userData.id).then(response => response.json()).then(data => {setFailed(data)})
+  }
+
+  const get_memorized = () => {
+    //fetch('http://127.0.0.1:8000/failed/' + userData.id).then(response => response.json()).then(data => {setFailed(data)})
+    setMemorized(10)
+    return 10
+  }
+
   const fill_bars = () => {
     // Works backwards 100%; means no total cards
 
-    let total = calculateTotalCards()
-    let pending = calculatePendingCards()
+    // Pending cards today
+    let total = 10
+    let pending = pendingToday
     let number = Math.floor(100 - ((100 / total) * pending))
 
     setFillPercentageTotal(number.toString() + "%")
 
     // repeating for other bars, this will be changed
 
-    total = calculateTotalCards()
-    pending = calculatePendingCards()
-    number = Math.floor(100 - ((100 / total) * pending))
+    total = 30
+    pending = failed
+    number = Math.floor(100 - ((100 / total) * failed))
+
+    console.log("failed: " + failed)
+    console.log("percentage for pending today: " + number)     
 
     setFillForgotten(number.toString() + "%")
 
 
-    total = calculateTotalCards()
-    pending = calculatePendingCards()
+    total = 100
+    pending = 75
     number = Math.floor(100 - ((100 / total) * pending))
 
     setFillMemorized(number.toString() + "%")
   }
-  
+
   const fetch_decks = () => {
-    fetch('http://127.0.0.1:8000/decks')
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          owner: userData.id
+        }
+        )
+      };
+      fetch('http://127.0.0.1:8000/decks', requestOptions)
         .then(response => response.json())
         .then(data => setDecks(data));
-
-    // Fetch deck preview image
+      console.log("decks fetched")
   }
 
   useEffect(() => {
-    fill_bars()
-    console.log(fillPercentageTotal)
-    fetch_decks()
+    const fetchUserData = async () => {
+      try {
+        if (userId) {
+          setUserData(await getUserData(userId))
+        } else {
+          console.error("No userID")
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+      }
+    }
+
+    fetchUserData()
   }, [])
+
+  useEffect(() => {
+    if (userData) {
+      fetch_decks();
+      get_failed_weekly();
+      fetchPendingToday();
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    fill_bars()
+  }, [pendingToday]);
 
   const ChartsOverviewDemo = () => {
     return (
@@ -85,7 +157,7 @@ export default function Leitner() {
         series={[
           {
             id: 'France',
-            label: 'Frances',
+            label: 'Básico',
             dataKey: 'fr',
             stack: 'total',
             area: true,
@@ -93,7 +165,7 @@ export default function Leitner() {
           },
           {
             id: 'Germany',
-            label: 'Japones',
+            label: 'Avanzado',
             dataKey: 'dl',
             stack: 'total',
             area: true,
@@ -101,7 +173,7 @@ export default function Leitner() {
           },
           {
             id: 'United Kingdom',
-            label: 'Ingles',
+            label: 'Inglés profesional',
             dataKey: 'gb',
             stack: 'total',
             area: true,
@@ -134,19 +206,19 @@ export default function Leitner() {
       </div>
       <div className="cardbox" style={{ backgroundColor: "  #43AFCD" }}>
         <div className="cardbox-fill" style={{ height: fillPercentageTotal }}>
-          <p className="number">{Math.floor(Math.random() * 19) + 1}</p>
+          <p className="number">{pendingToday}</p>
           <p className="stat_text">Cartas por estudiar hoy</p>
         </div>
       </div>
       <div className="cardbox" style={{ backgroundColor: "  #CD5E43" }}>
         <div className="cardbox-fill" style={{ height: fillForgotten }}>
-          <p className="number">{Math.floor(Math.random() * 19) + 1}</p>
+          <p className="number">{failed}</p>
           <p className="stat_text">Cartas olvidadas</p>
         </div>
       </div>
       <div className="cardbox" style={{ backgroundColor: "  #17C164" }}>
         <div className="cardbox-fill" style={{ height: fillMemorized }}>
-          <p className="number">{Math.floor(Math.random() * 19) + 1}</p>
+          <p className="number">{19}</p>
           <p className="stat_text">Cartas memorizadas</p>
         </div>
       </div>
@@ -159,7 +231,7 @@ export default function Leitner() {
 
     <section className="decks_container">
       {decks ? decks.map((deck, key) => (
-        <Deck name={deck.name} image={deck.image} owner={"Randy"} key={key} />
+        <Deck name={deck.name} image={deck.image} owner={userData.id} key={key} />
       )) : null}
     </section>
   </div>
