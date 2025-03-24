@@ -63,6 +63,12 @@ export default function GroupActivities({ group, isOwner }) {
   };
   const handleEditModalClose = () => setEditModalOpen(false);
 
+  const handleSave = (activity) => {
+    console.log(activity);
+    
+    setActivities((prev) => [...prev, activity]);
+  };
+
   return (
     <section className="group-section-container">
       <div className="group-act-container">
@@ -97,7 +103,12 @@ export default function GroupActivities({ group, isOwner }) {
           </ul>
         )}
       </div>
-      {addModalOpen && <AddActivityModal handleClose={handleAddModalClose} />}
+      {addModalOpen && (
+        <AddActivityModal
+          handleClose={handleAddModalClose}
+          handleSave={handleSave}
+        />
+      )}
       {editModalOpen && selectedActivity && (
         <EditActivityModal
           handleClose={handleEditModalClose}

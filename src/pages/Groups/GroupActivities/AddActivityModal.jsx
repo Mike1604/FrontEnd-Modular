@@ -46,14 +46,14 @@ const dummyDecks = [
   },
 ];
 
-export default function AddActivityModal({ handleClose }) {
+export default function AddActivityModal({ handleClose, handleSave }) {
   const [activityData, setActivityData] = useState({
     title: "",
     description: "",
     type: "",
     evaluation: "",
     deckSearch: "",
-    selectedDeck: "",
+    deck: "",
   });
 
   const [filteredDecks, setFilteredDecks] = useState([]);
@@ -66,10 +66,10 @@ export default function AddActivityModal({ handleClose }) {
     }));
   };
 
-  const onSelectDeck = (deckId) => {
+  const onSelectDeck = (deckName) => {
     setActivityData((prevData) => ({
       ...prevData,
-      ["selectedDeck"]: deckId,
+      ["deck"]: deckName,
     }));
   };
 
@@ -85,6 +85,11 @@ export default function AddActivityModal({ handleClose }) {
     if (e.target.classList.contains("modal-overlay")) {
       handleClose();
     }
+  };
+
+  const handleOnSave = (e) => {
+    handleSave(activityData);
+    handleClose()
   };
 
   return (
@@ -186,11 +191,11 @@ export default function AddActivityModal({ handleClose }) {
               <div
                 key={deck.id}
                 className="act-deck-container"
-                onClick={() => onSelectDeck(deck.id)}
+                onClick={() => onSelectDeck(deck.name)}
               >
                 <div
                   className={`${
-                    activityData.selectedDeck == deck.id ? "active-deck" : ""
+                    activityData.deck == deck.name ? "active-deck" : ""
                   } act-deck-card`}
                 >
                   <img src={deck.image} alt={deck.name} />
@@ -201,7 +206,7 @@ export default function AddActivityModal({ handleClose }) {
           )}
         </div>
 
-        <Button variant="outlined" endIcon={<Save />}>
+        <Button variant="outlined" endIcon={<Save />} onClick={handleOnSave}>
           Guardar
         </Button>
       </div>
