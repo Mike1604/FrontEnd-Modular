@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import "./Leitner.modules.css";
 import Card from "../components/UI/Card";
 import Box from '@mui/material/Box';
@@ -9,6 +10,10 @@ import Typography from '@mui/material/Typography';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SaveIcon from '@mui/icons-material/Save';
+
+import {
+  getUserData,
+} from "../services/userService";
 
 // Style for Modal
 const style = {
@@ -33,12 +38,36 @@ export default function NewCard() {
   const [saved, setSaved] = useState(false)
   const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
+  const userId = useSelector((state) => state.auth.userId);
+  const [userData, setUserData] = useState(null)
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        if (userId) {
+          setUserData(await getUserData(userId));
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [userId]);
 
   const handleOpen = () => {
     // If we already fetched the decks, no need
     if (!decks.length) {
       // Fetch decks for saving
-      fetch('http://127.0.0.1:8000/decks')
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          owner: userData.id // "Randy"
+        }
+        )
+      };
+      fetch('http://127.0.0.1:8000/decks', requestOptions)
         .then(response => response.json())
         .then(data => setDecks(data));
     }
@@ -61,7 +90,7 @@ export default function NewCard() {
         // Next fields should be acquired from user settings
         user_language: "Spanish",
         target_language: "English",
-        owner: "Randy",
+        owner: userData.id,
         style: "default"
       })
     };

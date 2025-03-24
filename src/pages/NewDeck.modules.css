@@ -80,4 +80,20 @@ p {
     background-color: #252525;
 }
 
-
+.first_division {
+    display: flex;
+    flex-direction: row;
+}
+.left {
+    flex-grow: 1;
+}
+.middle {
+    display: flex;
+    gap: 100px;
+    flex-direction: row;
+    flex-grow: 8;
+}
+.right {
+    display: flex;
+    align-items: center;
+}
