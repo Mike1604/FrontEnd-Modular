@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-export default function ActivityItem({ title, description, type, isOwner, onEdit, activityClick }) {
+export default function ActivityItem({ title, description, type, isOwner, onEdit, activityClick, onInfo, onDelete }) {
 
   return (
     <li className="act-item-cont">
@@ -22,13 +22,13 @@ export default function ActivityItem({ title, description, type, isOwner, onEdit
           <h2 onClick={activityClick}>{title}</h2>
           {isOwner && (
             <div>
-              <IconButton className="act-item-btn" size="small">
+              <IconButton className="act-item-btn" size="small" onClick={onInfo}>
                 <InfoOutlined fontSize="small" />
               </IconButton>
               <IconButton className="act-item-btn" size="small" onClick={onEdit}>
                 <Edit fontSize="small" />
               </IconButton>
-              <IconButton className="act-item-btn" size="small" color="error">
+              <IconButton className="act-item-btn" size="small" color="error" onClick={onDelete}>
                 <DeleteOutline fontSize="small" />
               </IconButton>
             </div>

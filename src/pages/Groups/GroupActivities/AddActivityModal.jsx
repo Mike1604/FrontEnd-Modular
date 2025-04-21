@@ -12,10 +12,6 @@ import { Search, Save, Add } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 
-import {
-  getUserData,
-} from "../../../services/userService";
-
 const activityTypes = ["Leitner Clasico", "Examen"];
 const evaluationTypes = ["Leitner", "Basada en texto"];
 
@@ -55,29 +51,15 @@ const dummyDecks = [
 export default function AddActivityModal({ handleClose, handleSave }) {
   const userId = useSelector((state) => state.auth.userId);
   const [decks, setDecks] = useState([])
-  const [userData, setUserData] = useState(null)
+  const [filteredDecks, setFilteredDecks] = useState([]);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (userId) {
-          setUserData(await getUserData(userId));
-        }
-      } catch (error) {
-        console.error("Error loading user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, [userId]);
-
-  useEffect(() => {
-    if (userData) {
+    if (userId) {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          owner: userData.id
+          owner: userId
         }
         )
       };
@@ -85,7 +67,7 @@ export default function AddActivityModal({ handleClose, handleSave }) {
         .then(response => response.json())
         .then(data => setDecks(data));
     }
-  }, [userData])
+  }, [userId])
 
   const [activityData, setActivityData] = useState({
     title: "",
@@ -94,9 +76,9 @@ export default function AddActivityModal({ handleClose, handleSave }) {
     evaluation: "",
     deckSearch: "",
     deck: "",
+    deckOwner: userId
   });
 
-  const [filteredDecks, setFilteredDecks] = useState([]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -109,8 +91,7 @@ export default function AddActivityModal({ handleClose, handleSave }) {
   const onSelectDeck = (deckName) => {
     setActivityData((prevData) => ({
       ...prevData,
-      ["deck"]: deckName,
-      ["owner"]: userData.id
+      ["deck"]: deckName
     }));
   };
 
@@ -146,6 +127,7 @@ export default function AddActivityModal({ handleClose, handleSave }) {
           label="Titulo"
           value={activityData.title}
           onChange={handleChange}
+          autoComplete="off"
         />
 
         <TextField

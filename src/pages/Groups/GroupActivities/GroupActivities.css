@@ -155,7 +155,7 @@ p.act-item-descr {
 }
 
 .act-deck-card:hover {
-  box-shadow: 0 0 0 8px var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color);
 }
 
 .act-deck-card svg {

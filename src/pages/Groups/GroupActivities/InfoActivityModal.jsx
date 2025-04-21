@@ -9,18 +9,22 @@ import {
 import { useState } from "react";
 import { Save } from "@mui/icons-material";
 
-import './EditActivityModal.css'
+import "./InfoActivityModal.css";
 
 const activityTypes = ["Leitner Clasico", "Examen"];
 const evaluationTypes = ["Leitner", "Basada en texto"];
 
-export default function EditActivityModal({ handleClose, activity }) {
+export default function InfoActivityModal({
+  mode,
+  handleClose,
+  activity,
+  handleSave,
+}) {
   const [activityData, setActivityData] = useState({
     title: activity.title,
     description: activity.description,
     type: activity.type,
     evaluation: activity.evaluation,
-    selectedDeck: activity.selectedDeck,
   });
 
   const handleChange = (event) => {
@@ -37,6 +41,8 @@ export default function EditActivityModal({ handleClose, activity }) {
     }
   };
 
+  const editDisabled = mode != "edit";
+
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="edit-act-content" onClick={(e) => e.stopPropagation()}>
@@ -51,6 +57,7 @@ export default function EditActivityModal({ handleClose, activity }) {
           label="Título"
           value={activityData.title}
           onChange={handleChange}
+          disabled={editDisabled}
         />
 
         <TextField
@@ -63,6 +70,7 @@ export default function EditActivityModal({ handleClose, activity }) {
           onChange={handleChange}
           multiline
           rows={2}
+          disabled={editDisabled}
         />
 
         <div className="combo-box-container">
@@ -74,6 +82,7 @@ export default function EditActivityModal({ handleClose, activity }) {
               name="type"
               value={activityData.type}
               onChange={handleChange}
+              disabled={editDisabled}
             >
               {activityTypes.map((type, index) => (
                 <MenuItem key={index} value={type}>
@@ -92,6 +101,7 @@ export default function EditActivityModal({ handleClose, activity }) {
               value={activityData.evaluation}
               onChange={handleChange}
               displayEmpty
+              disabled={editDisabled}
             >
               {evaluationTypes.map((evaluation, index) => (
                 <MenuItem key={index} value={evaluation}>
@@ -105,15 +115,23 @@ export default function EditActivityModal({ handleClose, activity }) {
         <div className="deck-info">
           <p className="deck-label">Deck seleccionado:</p>
           <p className="deck-name">{activity.deck}</p>
-          <p className="deck-warning">
-            ⚠️ No es posible cambiar el deck en una actividad ya creada. Si
-            necesitas usar otro deck, crea una nueva actividad.
-          </p>
+          {editDisabled == false && (
+            <p className="deck-warning">
+              ⚠️ No es posible cambiar el deck en una actividad ya creada. Si
+              necesitas usar otro deck, crea una nueva actividad.
+            </p>
+          )}
         </div>
 
-        <Button variant="outlined" endIcon={<Save />}>
-          Guardar Cambios
-        </Button>
+        {editDisabled == false && (
+          <Button
+            variant="outlined"
+            endIcon={<Save />}
+            onClick={() => handleSave(activity.id, activityData)}
+          >
+            Guardar Cambios
+          </Button>
+        )}
       </div>
     </div>
   );

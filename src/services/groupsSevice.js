@@ -67,7 +67,7 @@ export const updateGroup = async (groupID, data) => {
     body: formData,
     headers: {
       Authorization: token ? `Bearer ${token}` : "",
-    }
+    },
   });
 
   if (!response.ok) throw new Error("Error al actualizar el grupo");
@@ -278,3 +278,110 @@ export const removeGroupPost = async (groupId, postId) => {
     throw error;
   }
 };
+
+export const getGroupActs = async (groupId) => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    const URL = `http://localhost:8001/groups/${groupId}/activity`;
+    const response = await fetch(URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Group activities fetched: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while fetching group activities", error);
+    throw error;
+  }
+};
+
+export const addGroupActivity = async (groupId, activity) => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    const URL = `http://localhost:8001/groups/${groupId}/activity/`;
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      body: JSON.stringify(activity),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Activity added to group: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while adding activity to group", error);
+    throw error;
+  }
+};
+
+export const updateGroupAct = async (groupID, activityID, activity) => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    const URL = `http://localhost:8001/groups/${groupID}/activity/${activityID}`;
+    const response = await fetch(URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      body: JSON.stringify(activity),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Activity updated: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while updating the activity", error);
+    throw error;
+  }
+};
+
+export const deleteGroupAct = async (groupID, activityID) => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    const URL = `http://localhost:8001/groups/${groupID}/activity/${activityID}`;
+    const response = await fetch(URL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Activity deleted: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while deleting the activity", error);
+    throw error;
+  }
+};
+

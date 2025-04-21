@@ -30,7 +30,6 @@
   .deck-info {
     margin-top: 10px;
     padding: 10px;
-    background-color: var(--background-secondary);
     border-radius: 8px;
     text-align: center;
     border: 1px solid var(--primary-color);

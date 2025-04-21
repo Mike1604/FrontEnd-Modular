@@ -4,18 +4,35 @@ import { AddOutlined } from "@mui/icons-material";
 
 import ActivityItem from "./ActivityItem";
 import AddActivityModal from "./AddActivityModal";
-import EditActivityModal from "./EditActivityModal";
+import InfoActivityModal from "./InfoActivityModal";
 import "./GroupActivities.css";
 import { useNavigate } from "react-router";
-
-
+import {
+  getGroupActs,
+  addGroupActivity,
+  updateGroupAct,
+  deleteGroupAct,
+} from "../../../services/groupsSevice";
 
 export default function GroupActivities({ group, isOwner }) {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [activities, setActivities] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchGroupsActs = async () => {
+      try {
+        const data = await getGroupActs(group.id);
+        setActivities(data);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+      }
+    };
+    fetchGroupsActs();
+  }, [group.id]);
 
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
@@ -23,17 +40,64 @@ export default function GroupActivities({ group, isOwner }) {
     setSelectedActivity(activity);
     setEditModalOpen(true);
   };
+  const handleInfoModalOpen = (activity) => {
+    setSelectedActivity(activity);
+    setInfoModalOpen(true);
+  };
   const handleEditModalClose = () => setEditModalOpen(false);
+  const handleInfoModalClose = () => setInfoModalOpen(false);
 
-  const handleSave = (activity) => {
-    console.log(activity);
-    
-    setActivities((prev) => [...prev, activity]);
+  const handleSave = async (activity) => {
+    try {
+      const { deckSearch, ...activityToSend } = activity;
+
+      const res = await addGroupActivity(group.id, activityToSend);
+      console.log(res);
+
+      setActivities((prev) => [...prev, res.group_act]);
+    } catch (error) {
+      console.error("Error adding group activity", error);
+    }
+  };
+
+  const handleEditAct = async (activityID, activity) => {
+    try {
+      const res = await updateGroupAct(group.id, activityID, activity);
+      const updatedData = res.activity;
+      setActivities((prevActs) =>
+        prevActs.map((act) =>
+          act.id === act.id
+            ? {
+                ...updatedData,
+              }
+            : act
+        )
+      );
+    } catch (error) {
+      console.error("Error updating group activity", error);
+    }
+    setEditModalOpen(false);
+  };
+
+  const handleDeleteAct = async (activityID) => {
+    try {
+      const res = await deleteGroupAct(group.id, activityID);
+      console.log(res);
+
+      setActivities((prevActs) =>
+        prevActs.filter((act) => activityID !== act.id)
+      );
+    } catch (error) {
+      console.error("Error updating group activity", error);
+    }
+    setEditModalOpen(false);
   };
 
   const startActivity = (activity) => {
-    navigate('/study', {state: {name: activity.deck, owner: activity.owner}})
-  }
+    navigate("/study", {
+      state: { name: activity.deck, owner: activity.deckOwner },
+    });
+  };
 
   return (
     <section className="group-section-container">
@@ -60,12 +124,14 @@ export default function GroupActivities({ group, isOwner }) {
               <ActivityItem
                 key={index}
                 title={activity.title}
-                description={activity.description}
+                description={activity.desc}
                 type={activity.type}
                 isOwner={isOwner}
                 activityClick={() => startActivity(activity)}
                 onEdit={() => handleEditModalOpen(activity)}
-                />
+                onInfo={() => handleInfoModalOpen(activity)}
+                onDelete={() => handleDeleteAct(activity.id)}
+              />
             ))}
           </ul>
         )}
@@ -77,8 +143,17 @@ export default function GroupActivities({ group, isOwner }) {
         />
       )}
       {editModalOpen && selectedActivity && (
-        <EditActivityModal
+        <InfoActivityModal
+          mode={"edit"}
           handleClose={handleEditModalClose}
+          activity={selectedActivity}
+          handleSave={handleEditAct}
+        />
+      )}
+      {infoModalOpen && selectedActivity && (
+        <InfoActivityModal
+          mode={"info"}
+          handleClose={handleInfoModalClose}
           activity={selectedActivity}
         />
       )}
