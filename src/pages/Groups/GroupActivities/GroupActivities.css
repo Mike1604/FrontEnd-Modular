@@ -137,6 +137,11 @@ p.act-item-descr {
   flex-wrap: nowrap;
 }
 
+.act-deck-container > h2 {
+  font-size: .75rem;
+  margin-top: 10px;
+}
+
 .act-deck-card {
   width: 6rem;
   height: 7.5rem;
@@ -150,7 +155,7 @@ p.act-item-descr {
 }
 
 .act-deck-card:hover {
-  box-shadow: 0 0 0 8px var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color);
 }
 
 .act-deck-card svg {

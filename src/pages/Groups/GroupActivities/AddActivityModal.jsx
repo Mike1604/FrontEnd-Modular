@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Search, Save, Add } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+
 
 const activityTypes = ["Leitner Clasico", "Examen"];
 const evaluationTypes = ["Leitner", "Basada en texto"];
@@ -46,17 +48,37 @@ const dummyDecks = [
   },
 ];
 
-export default function AddActivityModal({ handleClose }) {
+export default function AddActivityModal({ handleClose, handleSave }) {
+  const userId = useSelector((state) => state.auth.userId);
+  const [decks, setDecks] = useState([])
+  const [filteredDecks, setFilteredDecks] = useState([]);
+
+  useEffect(() => {
+    if (userId) {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          owner: userId
+        }
+        )
+      };
+      fetch('http://127.0.0.1:8000/decks', requestOptions)
+        .then(response => response.json())
+        .then(data => setDecks(data));
+    }
+  }, [userId])
+
   const [activityData, setActivityData] = useState({
     title: "",
     description: "",
     type: "",
     evaluation: "",
     deckSearch: "",
-    selectedDeck: "",
+    deck: "",
+    deckOwner: userId
   });
 
-  const [filteredDecks, setFilteredDecks] = useState([]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -66,16 +88,16 @@ export default function AddActivityModal({ handleClose }) {
     }));
   };
 
-  const onSelectDeck = (deckId) => {
+  const onSelectDeck = (deckName) => {
     setActivityData((prevData) => ({
       ...prevData,
-      ["selectedDeck"]: deckId,
+      ["deck"]: deckName
     }));
   };
 
   useEffect(() => {
     const searchQuery = activityData.deckSearch.toLowerCase();
-    const filtered = dummyDecks.filter((deck) =>
+    const filtered = decks.filter((deck) =>
       deck.name.toLowerCase().includes(searchQuery)
     );
     setFilteredDecks(filtered);
@@ -85,6 +107,11 @@ export default function AddActivityModal({ handleClose }) {
     if (e.target.classList.contains("modal-overlay")) {
       handleClose();
     }
+  };
+
+  const handleOnSave = (e) => {
+    handleSave(activityData);
+    handleClose()
   };
 
   return (
@@ -100,6 +127,7 @@ export default function AddActivityModal({ handleClose }) {
           label="Titulo"
           value={activityData.title}
           onChange={handleChange}
+          autoComplete="off"
         />
 
         <TextField
@@ -180,20 +208,33 @@ export default function AddActivityModal({ handleClose }) {
           </div>
 
           {filteredDecks.length === 0 ? (
-            <p>No decks found</p>
-          ) : (
-            filteredDecks.map((deck) => (
+            decks ? decks.map((deck, key) => (
               <div
-                key={deck.id}
+                key={key}
                 className="act-deck-container"
-                onClick={() => onSelectDeck(deck.id)}
+                onClick={() => onSelectDeck(deck.name)}
               >
                 <div
-                  className={`${
-                    activityData.selectedDeck == deck.id ? "active-deck" : ""
-                  } act-deck-card`}
+                  className={`${activityData.deck == deck.name ? "active-deck" : ""
+                    } act-deck-card`}
                 >
-                  <img src={deck.image} alt={deck.name} />
+                  <img src={"../" + deck.image} alt={deck.name} />
+                </div>
+                <h2>{deck.name}</h2>
+              </div>
+            )) : "Buscando mazos..."
+          ) : (
+            filteredDecks.map((deck, key) => (
+              <div
+                key={key}
+                className="act-deck-container"
+                onClick={() => onSelectDeck(deck.name)}
+              >
+                <div
+                  className={`${activityData.deck == deck.name ? "active-deck" : ""
+                    } act-deck-card`}
+                >
+                  <img src={"../" + deck.image} alt={deck.name} />
                 </div>
                 <h2>{deck.name}</h2>
               </div>
@@ -201,7 +242,7 @@ export default function AddActivityModal({ handleClose }) {
           )}
         </div>
 
-        <Button variant="outlined" endIcon={<Save />}>
+        <Button variant="outlined" endIcon={<Save />} onClick={handleOnSave}>
           Guardar
         </Button>
       </div>

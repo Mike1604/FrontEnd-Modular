@@ -4,64 +4,100 @@ import { AddOutlined } from "@mui/icons-material";
 
 import ActivityItem from "./ActivityItem";
 import AddActivityModal from "./AddActivityModal";
-import EditActivityModal from "./EditActivityModal";
+import InfoActivityModal from "./InfoActivityModal";
 import "./GroupActivities.css";
-
-const dummyData = [
-  {
-    title: "Verb Vocabulary",
-    description: "Group activity to learn the most common verbs in English.",
-    type: "Leitner Clasico",
-    evaluation: "Leitner",
-    deck: "Verbs in English",
-  },
-  {
-    title: "Adjective Vocabulary",
-    description: "Test on descriptive adjectives in English.",
-    type: "Examen",
-    evaluation: "Basada en texto",
-    deck: "Adjectives in English",
-  },
-  {
-    title: "Noun Vocabulary",
-    description: "Review activity on countable and uncountable nouns.",
-    type: "Leitner Clasico",
-    evaluation: "Leitner",
-    deck: "Nouns in English",
-  },
-  {
-    title: "Common Phrases Vocabulary",
-    description: "Test on common phrases for daily conversation.",
-    type: "Examen",
-    evaluation: "Leitner",
-    deck: "Common Phrases in English",
-  },
-  {
-    title: "Pronoun Vocabulary",
-    description: "Review of personal and possessive pronouns in English.",
-    type: "Leitner Clasico",
-    evaluation: "Basada en texto",
-    deck: "Pronouns in English",
-  },
-];
+import { useNavigate } from "react-router";
+import {
+  getGroupActs,
+  addGroupActivity,
+  updateGroupAct,
+  deleteGroupAct,
+} from "../../../services/groupsSevice";
 
 export default function GroupActivities({ group, isOwner }) {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [activities, setActivities] = useState([]);
+  const navigate = useNavigate();
 
-  //Update this when activities available in backend
   useEffect(() => {
-    setActivities(dummyData);
-  }, []);
+    const fetchGroupsActs = async () => {
+      try {
+        const data = await getGroupActs(group.id);
+        setActivities(data);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+      }
+    };
+    fetchGroupsActs();
+  }, [group.id]);
+
   const handleAddModalOpen = () => setAddModalOpen(true);
   const handleAddModalClose = () => setAddModalOpen(false);
   const handleEditModalOpen = (activity) => {
     setSelectedActivity(activity);
     setEditModalOpen(true);
   };
+  const handleInfoModalOpen = (activity) => {
+    setSelectedActivity(activity);
+    setInfoModalOpen(true);
+  };
   const handleEditModalClose = () => setEditModalOpen(false);
+  const handleInfoModalClose = () => setInfoModalOpen(false);
+
+  const handleSave = async (activity) => {
+    try {
+      const { deckSearch, ...activityToSend } = activity;
+
+      const res = await addGroupActivity(group.id, activityToSend);
+      console.log(res);
+
+      setActivities((prev) => [...prev, res.group_act]);
+    } catch (error) {
+      console.error("Error adding group activity", error);
+    }
+  };
+
+  const handleEditAct = async (activityID, activity) => {
+    try {
+      const res = await updateGroupAct(group.id, activityID, activity);
+      const updatedData = res.activity;
+      setActivities((prevActs) =>
+        prevActs.map((act) =>
+          act.id === act.id
+            ? {
+                ...updatedData,
+              }
+            : act
+        )
+      );
+    } catch (error) {
+      console.error("Error updating group activity", error);
+    }
+    setEditModalOpen(false);
+  };
+
+  const handleDeleteAct = async (activityID) => {
+    try {
+      const res = await deleteGroupAct(group.id, activityID);
+      console.log(res);
+
+      setActivities((prevActs) =>
+        prevActs.filter((act) => activityID !== act.id)
+      );
+    } catch (error) {
+      console.error("Error updating group activity", error);
+    }
+    setEditModalOpen(false);
+  };
+
+  const startActivity = (activity) => {
+    navigate("/study", {
+      state: { name: activity.deck, owner: activity.deckOwner },
+    });
+  };
 
   return (
     <section className="group-section-container">
@@ -88,19 +124,36 @@ export default function GroupActivities({ group, isOwner }) {
               <ActivityItem
                 key={index}
                 title={activity.title}
-                description={activity.description}
+                description={activity.desc}
                 type={activity.type}
                 isOwner={isOwner}
+                activityClick={() => startActivity(activity)}
                 onEdit={() => handleEditModalOpen(activity)}
+                onInfo={() => handleInfoModalOpen(activity)}
+                onDelete={() => handleDeleteAct(activity.id)}
               />
             ))}
           </ul>
         )}
       </div>
-      {addModalOpen && <AddActivityModal handleClose={handleAddModalClose} />}
+      {addModalOpen && (
+        <AddActivityModal
+          handleClose={handleAddModalClose}
+          handleSave={handleSave}
+        />
+      )}
       {editModalOpen && selectedActivity && (
-        <EditActivityModal
+        <InfoActivityModal
+          mode={"edit"}
           handleClose={handleEditModalClose}
+          activity={selectedActivity}
+          handleSave={handleEditAct}
+        />
+      )}
+      {infoModalOpen && selectedActivity && (
+        <InfoActivityModal
+          mode={"info"}
+          handleClose={handleInfoModalClose}
           activity={selectedActivity}
         />
       )}

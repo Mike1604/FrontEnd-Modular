@@ -70,7 +70,7 @@ export default function Leitner() {
     // Works backwards 100%; means no total cards
 
     // Pending cards today
-    let total = 10
+    let total = 50
     let pending = pendingToday
     let number = Math.floor(100 - ((100 / total) * pending))
 

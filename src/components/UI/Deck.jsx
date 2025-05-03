@@ -14,7 +14,7 @@ const Deck = ({ name, image, owner }) => {
 
     return (
         <div className="deck">
-            <img src={"./" + image} onClick={redirect}/>
+            <img src={"../" + image} onClick={redirect}/>
             <div className="deck_lower">
                 <p onClick={redirect}>{name}</p>
                 <SettingsIcon onClick={configure} className="deck_lower_icon"/>
