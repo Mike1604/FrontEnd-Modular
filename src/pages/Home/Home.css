@@ -1,6 +1,6 @@
 .home-cont {
   display: grid;
-  grid-template-columns: 1fr 400px; 
+  grid-template-columns: auto 500px; 
   grid-template-rows: auto auto 1fr;
   gap: 1rem;
   padding: 1rem;
@@ -26,12 +26,16 @@
 .chart-container {
   flex: 1 1 auto;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
-  height: 300px;
+  flex-flow: column;
+  height: 200px;
   width: 100%;
   max-width: 100%;
-  min-width: 0;           
+  min-width: 0;       
+  background-color: var(--background-secondary);
+  padding: 10px; 
+  border-radius: 10px;   
 }
 
 .chart-container > div {
@@ -76,10 +80,6 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.footer-section {
-  grid-column: span 2;
-  width: 100%;
-}
 
 .groups-home {
   display: flex;
