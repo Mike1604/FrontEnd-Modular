@@ -63,7 +63,7 @@ export default function NewCard() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          owner: userData.id // "Randy"
+          owner: userData.id
         }
         )
       };

@@ -7,11 +7,11 @@ import {
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-export default function ActivityItem({ title, description, type, isOwner, onEdit, activityClick, onInfo, onDelete }) {
+export default function ActivityItem({ activity, isOwner, onEdit, activityClick, onInfo, onDelete }) {
 
   return (
     <li className="act-item-cont">
-      {type === "Leitner Clasico" ? (
+      {activity.type === "Leitner Clasico" ? (
         <LibraryBooksOutlined className="act-icon" />
       ) : (
         <PendingActionsOutlined className="act-icon" />
@@ -19,7 +19,7 @@ export default function ActivityItem({ title, description, type, isOwner, onEdit
 
       <div className="act-content">
         <div className="act-header">
-          <h2 onClick={activityClick}>{title}</h2>
+          <h2 onClick={activityClick}>{activity.title}</h2>
           {isOwner && (
             <div>
               <IconButton className="act-item-btn" size="small" onClick={onInfo}>
@@ -34,8 +34,8 @@ export default function ActivityItem({ title, description, type, isOwner, onEdit
             </div>
           )}
         </div>
-        <p onClick={activityClick}>{type}</p>
-        <p onClick={activityClick} className="act-item-descr">{description}</p>
+        <p onClick={activityClick}>{activity.type}</p>
+        <p onClick={activityClick} className="act-item-descr">{activity.description} {activity.id}</p>
       </div>
     </li>
   );
