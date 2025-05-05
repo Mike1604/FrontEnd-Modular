@@ -135,12 +135,10 @@ export default function GroupActivities({ group, isOwner }) {
           <p>Por el momento no hay actividades</p>
         ) : (
           <ul className="group-activities-cont">
-            {activities.map((activity, index) => (
+            {activities.map((activity) => (
               <ActivityItem
-                key={index}
-                title={activity.title}
-                description={activity.desc}
-                type={activity.type}
+                key={activity.id}
+                activity={activity}
                 isOwner={isOwner}
                 activityClick={() => startActivity(activity)}
                 onEdit={() => handleEditModalOpen(activity)}
