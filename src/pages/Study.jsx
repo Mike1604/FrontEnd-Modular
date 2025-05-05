@@ -11,6 +11,8 @@ import { useLocation } from "react-router";
 import {
     getUserData,
   } from "../services/userService";
+import { recordSessionData} from "../services/statsService";
+
 export default function Study() {
     const location = useLocation();
     const [isFlipped, setIsFlipped] = useState(true)
@@ -20,6 +22,12 @@ export default function Study() {
     const audioRefs = useRef([]); // Array to hold refs for each audio element
     const [completed, setCompleted] = useState(false)
     const [userData, setUserData] = useState(null)
+
+    const [correctCount, setCorrectCount] = useState(0);
+    const [incorrectCount, setIncorrectCount] = useState(0);
+    const [startTime, setStartTime] = useState(Date.now());
+
+
     const userId = useSelector((state) => state.auth.userId);
 
     useEffect(() => {
@@ -52,6 +60,8 @@ export default function Study() {
 
 
     const thumbsUp = () => {
+        setCorrectCount(prev => prev + 1);
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -95,6 +105,8 @@ export default function Study() {
     }
 
     const thumbsDown = () => {
+        setIncorrectCount(prev => prev + 1);
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -162,6 +174,34 @@ export default function Study() {
 
         fetchCards();
     }, []);
+
+    //This is used to record session metrics
+    useEffect(() => {
+        if (completed) {
+            const endTime = Date.now();
+            const durationMinutes = Math.round((endTime - startTime) / 60000);  // milisegundos a minutos
+    
+            const sessionData = {
+                deck: location.state.name,
+                language: userData ? userData.primary_language : "unknown",
+                session_duration_minutes: durationMinutes,
+                flashcards_studied: cardsInitialLength,
+                correct_answers: correctCount,
+                incorrect_answers: incorrectCount,
+                session_date: new Date().toISOString()
+            };
+    
+            recordSessionData(sessionData)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Session saved:", data);
+            })
+            .catch(error => {
+                console.error("Error saving session:", error);
+            });
+        }
+    }, [completed]);
+    
 
     return (
         <div className={"main_container"}>
