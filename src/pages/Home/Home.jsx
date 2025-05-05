@@ -76,16 +76,15 @@ export default function Home() {
   }, {});
 
   const radarChartData = Object.values(languageStats);
-  console.log(languageStats);
-
   return (
     <div className="home-cont">
       <div>
         <h2 className="welcome-text">{`Hola, ${userName}`}</h2>
-        <h2>Tu actividad este año</h2>
+        
       </div>
       <div className="my-data-home">
         <div className="chart-container">
+        <h2>Tu actividad este año</h2>
           <ResponsiveCalendar
             data={data}
             from={
@@ -117,6 +116,7 @@ export default function Home() {
                 },
               },
             }}
+            height={"150"}
           />
         </div>
       </div>
@@ -145,7 +145,7 @@ export default function Home() {
       </div>
 
       <section>
-        <h3>Tus grupos</h3>
+        <h1>Tus grupos</h1>
         <div className="groups-home">
           {groups.map((group, index) => (
             <GroupItem key={index} group={group} />

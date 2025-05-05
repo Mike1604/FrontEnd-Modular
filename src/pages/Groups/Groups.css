@@ -196,6 +196,22 @@
   min-width: 100px;
 }
 
+.group-charts{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  
+}
+.group-chart-cont{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  background-color: var(--background-secondary);
+  padding: 10px; 
+  border-radius: 10px; 
+}
+
 @media (max-width: 768px) {
   .groups-content {
     justify-content: center;

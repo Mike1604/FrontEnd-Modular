@@ -24,12 +24,12 @@
 }
 
 .chart-container {
-  flex: 1 1 auto;
   display: flex;
   align-items: start;
   justify-content: center;
   flex-flow: column;
-  height: 200px;
+  gap: 1rem;
+  height: 250px;
   width: 100%;
   max-width: 100%;
   min-width: 0;       
@@ -47,6 +47,10 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  background-color: var(--background-secondary);
+  padding: 10px; 
+  border-radius: 10px;
+  max-height: 400px  
 }
 
 .home-sect {
