@@ -17,6 +17,7 @@ import NewCard from "../pages/NewCard";
 import NewDeck from "../pages/NewDeck";
 import DeckView from "../pages/DeckView";
 import Study from "../pages/Study";
+import Exam from "../pages/evaluation/exam/Exam.jsx";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <NewDeck />
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/exam",
+        element: (
+            <ProtectedRoute>
+              <Exam />
+            </ProtectedRoute>
         ),
       },
       {

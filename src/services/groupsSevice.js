@@ -305,10 +305,14 @@ export const getGroupActs = async (groupId) => {
   }
 };
 
-export const addGroupActivity = async (groupId, activity) => {
+export const addGroupActivity = async (groupId, activity, exam_id = null) => {
   try {
     const token = localStorage.getItem("authToken");
 
+    if (exam_id != null) {
+      console.log(activity);
+      activity["exam_id"] = exam_id;
+    }
     const URL = `http://localhost:8001/groups/${groupId}/activity/`;
     const response = await fetch(URL, {
       method: "POST",
@@ -328,6 +332,37 @@ export const addGroupActivity = async (groupId, activity) => {
     return result;
   } catch (error) {
     console.error("Error while adding activity to group", error);
+    throw error;
+  }
+};
+
+export const generateExam = async (groupId, activity) => {
+  try {
+    const URL = `http://127.0.0.1:8000/generate-exam`;
+    const response = await fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        words: ['banana', 'mango', 'strawberry'],
+        group_id: groupId,
+        user_language: 'Spanish',
+        target_language: 'English',
+        assigned_to: "",
+        completed_by: ""
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Exam Generated: ", result);
+    return result;
+  } catch (error) {
+    console.error("Error while generating new exam.", error);
     throw error;
   }
 };

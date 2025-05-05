@@ -1,0 +1,28 @@
+.question_number {
+    font-weight: bold;
+    font-size: 17px;
+    margin: 20px 0;
+    padding-left: 5px;
+}
+.question {
+    background-color: #252525;
+    border-radius: 10px;
+    border: 1px solid white;
+    max-width: 700px;
+}
+
+.question > hr {
+    margin:20px 0px;
+}
+
+.question > h2 {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #D8D8D8;
+    font-size: 17px;
+}
+
+.question > form {
+    margin: 20px;
+}

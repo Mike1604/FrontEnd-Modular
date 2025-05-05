@@ -11,7 +11,7 @@ import {
   getGroupActs,
   addGroupActivity,
   updateGroupAct,
-  deleteGroupAct,
+  deleteGroupAct, generateExam,
 } from "../../../services/groupsSevice";
 
 export default function GroupActivities({ group, isOwner }) {
@@ -50,11 +50,19 @@ export default function GroupActivities({ group, isOwner }) {
   const handleSave = async (activity) => {
     try {
       const { deckSearch, ...activityToSend } = activity;
+      if (activityToSend.type == "Examen") {
+        // Create an exam
+        const exam_generated = await generateExam(group.id, activityToSend);
+        const res = await addGroupActivity(group.id, activityToSend, exam_generated.id);
+        console.log(res);
+        setActivities((prev) => [...prev, res.group_act]);
+      } else {
+        const res = await addGroupActivity(group.id, activityToSend);
+        console.log(res);
+        setActivities((prev) => [...prev, res.group_act]);
+      }
 
-      const res = await addGroupActivity(group.id, activityToSend);
-      console.log(res);
 
-      setActivities((prev) => [...prev, res.group_act]);
     } catch (error) {
       console.error("Error adding group activity", error);
     }
@@ -94,9 +102,16 @@ export default function GroupActivities({ group, isOwner }) {
   };
 
   const startActivity = (activity) => {
-    navigate("/study", {
-      state: { name: activity.deck, owner: activity.deckOwner },
-    });
+    console.log(activity)
+    if (activity.type == 'Examen') {
+      navigate('/exam', {
+        state: { id: activity.exam_id}
+      })
+    } else {
+      navigate("/study", {
+        state: { name: activity.deck, owner: activity.deckOwner },
+      });
+    }
   };
 
   return (
