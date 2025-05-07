@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { Unstable_RadarChart as RadarChart } from "@mui/x-charts/RadarChart";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { ViewCarousel, SchoolSharp } from "@mui/icons-material";
 
 import "./Home.css";
 import { getUserData } from "../../services/userService";
 import { getGroups } from "../../services/groupsSevice";
 import { getSessionData } from "../../services/statsService";
+
+import UserLevelDisplay from "./UserLevelDisplay";
 import GroupItem from "../Groups/GroupItem";
 
 const aggregateByAnswerType = (sessions) => {
@@ -50,7 +51,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   const grouped = studyStats.reduce((acc, session) => {
     const date = session.session_date.slice(0, 10);
@@ -76,15 +77,16 @@ export default function Home() {
   }, {});
 
   const radarChartData = Object.values(languageStats);
+
   return (
     <div className="home-cont">
       <div>
         <h2 className="welcome-text">{`Hola, ${userName}`}</h2>
-        
       </div>
+
       <div className="my-data-home">
         <div className="chart-container">
-        <h2>Tu actividad este año</h2>
+          <h2>Tu actividad este año</h2>
           <ResponsiveCalendar
             data={data}
             from={
@@ -143,7 +145,6 @@ export default function Home() {
           />
         </section>
       </div>
-
       <section>
         <h1>Tus grupos</h1>
         <div className="groups-home">
@@ -154,6 +155,12 @@ export default function Home() {
       </section>
 
       <div className="home-sect-container">
+        <section className="test">
+          <h2>Tu nivel en el idioma ingles</h2>
+          <div className="level-cont">
+            <UserLevelDisplay userId={userId}></UserLevelDisplay>
+          </div>
+        </section>
         <section className="test">
           <h2>Resumen por idioma</h2>
           <RadarChart
@@ -166,6 +173,8 @@ export default function Home() {
           />
         </section>
       </div>
+
+      
     </div>
   );
 }
