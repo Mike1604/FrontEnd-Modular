@@ -45,7 +45,7 @@ export default function Sidebar({ gridClass, activeClass }) {
             { title: "Inicio", route: "/leitner" },
             { title: "Crear carta automaticamente", route: "/crear-carta" },
             { title: "Crear nueva baraja", route: "/crear-baraja" },
-            { title: "Configurar", route: "/leitner" },
+            // { title: "Configurar", route: "/leitner" },
           ]}
           />
       </div>
