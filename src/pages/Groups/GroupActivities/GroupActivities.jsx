@@ -13,6 +13,7 @@ import {
   updateGroupAct,
   deleteGroupAct, generateExam,
 } from "../../../services/groupsSevice";
+import {useSelector} from "react-redux";
 
 export default function GroupActivities({ group, isOwner }) {
   const [addModalOpen, setAddModalOpen] = useState(false);
@@ -21,11 +22,13 @@ export default function GroupActivities({ group, isOwner }) {
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [activities, setActivities] = useState([]);
   const navigate = useNavigate();
+  const userId = useSelector((state) => state.auth.userId);
+
 
   useEffect(() => {
     const fetchGroupsActs = async () => {
       try {
-        const data = await getGroupActs(group.id);
+        const data = await getGroupActs(group.id, userId);
         setActivities(data);
       } catch (error) {
         console.error("Error fetching groups:", error);

@@ -181,7 +181,7 @@ export default function Leitner() {
           },
         ]}
         height={420}
-        margin={{ left: 70 }}
+        margin={{ left: 0 }}
       />
     );
   }

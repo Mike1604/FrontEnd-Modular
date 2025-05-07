@@ -279,7 +279,7 @@ export const removeGroupPost = async (groupId, postId) => {
   }
 };
 
-export const getGroupActs = async (groupId) => {
+export const getGroupActs = async (groupId, userId) => {
   try {
     const token = localStorage.getItem("authToken");
 
@@ -297,6 +297,35 @@ export const getGroupActs = async (groupId) => {
     }
 
     const result = await response.json();
+
+    // Edit activities, marking completed exams
+    // 1) Get completed exams by user
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        id: userId
+      })
+    };
+
+    const completed_exams = await fetch('http://127.0.0.1:8000/fetch-completed-exams', requestOptions)
+        .then(response => response.json())
+    const exams = new Map();
+
+
+    for (const exam of completed_exams) {
+      exams.set(exam.exam_id.toString(), (exam.score + "/" + exam.total_questions).toString());
+    }
+    console.log("exams: ", exams);
+
+    // 2) Mark completed activities
+    for (const entry of result) {
+      if (exams.has(entry.exam_id)) {
+        entry.done = true;
+        entry.calification = exams.get(entry.exam_id);
+      }
+    }
+
     console.log("Group activities fetched: ", result);
     return result;
   } catch (error) {
@@ -337,6 +366,27 @@ export const addGroupActivity = async (groupId, activity, exam_id = null) => {
 };
 
 export const generateExam = async (groupId, activity) => {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      deck_name: activity.deck,
+      deck_owner: activity.deckOwner
+    })
+  };
+
+  let fetched;
+  await fetch('http://127.0.0.1:8000/fetch-cards', requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log("Successfully fetched cards: ", data);
+      fetched = data;
+  });
+
+  return await fetchExam(groupId, fetched.map(card => card.original_input));
+};
+
+const fetchExam = async (groupId, words) => {
   try {
     const URL = `http://127.0.0.1:8000/generate-exam`;
     const response = await fetch(URL, {
@@ -345,7 +395,7 @@ export const generateExam = async (groupId, activity) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        words: ['banana', 'mango', 'strawberry'],
+        words: words,
         group_id: groupId,
         user_language: 'Spanish',
         target_language: 'English',
@@ -365,7 +415,7 @@ export const generateExam = async (groupId, activity) => {
     console.error("Error while generating new exam.", error);
     throw error;
   }
-};
+}
 
 export const updateGroupAct = async (groupID, activityID, activity) => {
   try {
