@@ -122,7 +122,7 @@ export default function Home() {
       </div>
 
       <div className="home-sect-container">
-        <section>
+        <section className="test">
           <h2>Precisión de Respuestas</h2>
           <PieChart
             series={[
@@ -154,7 +154,7 @@ export default function Home() {
       </section>
 
       <div className="home-sect-container">
-        <section>
+        <section className="test">
           <h2>Resumen por idioma</h2>
           <RadarChart
             height={300}
