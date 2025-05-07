@@ -10,8 +10,7 @@ export default function UserLevelDisplay({ userId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //const userLevel = await getUserLevel(userId);
-        const userLevel = 1;
+        const userLevel = await getUserLevel(userId);
         setLevel(userLevel);
       } catch (error) {
         console.log("An error occurred", error);

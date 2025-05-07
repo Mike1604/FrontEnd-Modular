@@ -1,6 +1,6 @@
 export const getUserLevel = async (userId) => {
     try {
-      const URL = `http://localhost:8000/neural?/${userId}`;
+      const URL = `http://localhost:8000/user-level/${userId}`;
       const response = await fetch(URL, {
         method: "GET",
         headers: {
