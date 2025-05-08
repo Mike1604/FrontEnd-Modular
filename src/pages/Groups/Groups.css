@@ -197,18 +197,30 @@
 }
 
 .group-charts{
+  margin: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   
 }
+
+.group-chart-cont > h2{
+  box-sizing: border-box;
+  border-radius: 10px 10px 0 0;
+  padding: 10px 0 10px 15px;
+  background-color: #424242;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .group-chart-cont{
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
   background-color: var(--background-secondary);
-  padding: 10px; 
   border-radius: 10px; 
 }
 
