@@ -122,7 +122,7 @@ const Content = ({ section, group, isOwner }) => {
         <p>No tienes acceso a esta sección.</p>
       );
     case GROUP_OPTIONS.ESTADISTICAS:
-      return <GroupStats/>
+      return <GroupStats group={group}/>
     default:
       return <p>Sección no encontrada</p>;
   }

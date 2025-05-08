@@ -15,39 +15,6 @@ import { useSelector } from "react-redux";
 const activityTypes = ["Leitner Clasico", "Examen"];
 const evaluationTypes = ["Leitner", "Basada en texto"];
 
-const dummyDecks = [
-  {
-    id: 1,
-    name: "Deck 1",
-    image:
-      "https://istscientific.com/wp-content/uploads/2023/10/Top-7-Lab-Supplies-Every-Laboratory-Needs.jpg",
-  },
-  {
-    id: 2,
-    name: "Deck 2",
-    image:
-      "https://istscientific.com/wp-content/uploads/2023/10/Top-7-Lab-Supplies-Every-Laboratory-Needs.jpg",
-  },
-  {
-    id: 3,
-    name: "Deck 3",
-    image:
-      "https://istscientific.com/wp-content/uploads/2023/10/Top-7-Lab-Supplies-Every-Laboratory-Needs.jpg",
-  },
-  {
-    id: 4,
-    name: "Deck 4",
-    image:
-      "https://istscientific.com/wp-content/uploads/2023/10/Top-7-Lab-Supplies-Every-Laboratory-Needs.jpg",
-  },
-  {
-    id: 5,
-    name: "Deck 5",
-    image:
-      "https://istscientific.com/wp-content/uploads/2023/10/Top-7-Lab-Supplies-Every-Laboratory-Needs.jpg",
-  },
-];
-
 export default function AddActivityModal({ handleClose, handleSave }) {
   const userId = useSelector((state) => state.auth.userId);
   const [decks, setDecks] = useState([])
@@ -73,7 +40,7 @@ export default function AddActivityModal({ handleClose, handleSave }) {
     title: "",
     description: "",
     type: "",
-    evaluation: "",
+    evaluation: "Leitner",
     deckSearch: "",
     deck: "",
     deckOwner: userId
@@ -160,23 +127,6 @@ export default function AddActivityModal({ handleClose, handleSave }) {
             </Select>
           </FormControl>
 
-          <FormControl required>
-            <InputLabel id="evaluation-label">Evaluación</InputLabel>
-            <Select
-              labelId="evaluation-label"
-              id="evaluation"
-              name="evaluation"
-              value={activityData.evaluation}
-              onChange={handleChange}
-              displayEmpty
-            >
-              {evaluationTypes.map((evaluation, index) => (
-                <MenuItem key={index} value={evaluation}>
-                  {evaluation}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
         </div>
 
         <TextField

@@ -168,6 +168,7 @@
 
 .decks_container {
     display: flex;
+    flex-wrap: wrap;
     gap: 25px;
     padding: 20px;
     padding-bottom: 50px;
