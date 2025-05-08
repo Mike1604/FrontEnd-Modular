@@ -376,7 +376,7 @@ export const generateExam = async (groupId, activity) => {
   };
 
   let fetched;
-  await fetch('http://127.0.0.1:8000/fetch-cards', requestOptions)
+  await fetch('http://127.0.0.1:8000/fetch-all-cards', requestOptions)
     .then(response => response.json())
     .then(data => {
       console.log("Successfully fetched cards: ", data);
