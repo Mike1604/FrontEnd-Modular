@@ -53,7 +53,7 @@ export default function GroupStats({ group }) {
 
   return (
     <section className="group-section-container">
-      <div className="group-charts">
+      <div style={{marginTop: '50px'}} className="group-charts">
         <section className="group-chart-cont">
           <h2>Respuestas correctas</h2>
           <LineChart
@@ -81,6 +81,7 @@ export default function GroupStats({ group }) {
             series={[{ data: pieData }]}
             width={300}
             height={300}
+            style={{paddingLeft: '30px', paddingRight: '20px'}}
           />
         </section>
       </div>
